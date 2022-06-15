@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="jquery-3.6.0.js"></script>
+<title>Page Title</title>
+</head>
+<style>
+    .square{
+        width: 20px;
+        height: 20px;
+        border-color: #fcfcfc #7b7b7b #7b7b7b #fcfcfc ;
+        border-style: solid;
+        border-width: 2px;
+        /* border-colo: 2px solid #7b7b7b; */
+        /* box-shadow: 2px 2px #fcfcfc inset; */
+        background-color: #bdbdbd;
+    }
+
+    #board{
+        display: grid;
+        border: 2px #bdbdbd solid;
+        /* grid-template-rows: 10;
+        grid-template-columns: 10; */
+    }
+</style>
+
+<body>
+
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+
+<div class="container" id="board">
+</div>
+
+
+    <script>
+        const board = document.querySelector('#board');
+        const WIDTH = 10;
+        const HEIGHT = 10;
+        const MINES = 10;
+        
+        board.style.gridTemplateColumns = `repeat(${WIDTH}, 24px)`;
+        board.innerHTML = ''
+        var mines = [];
+
+        var boarddata = [];
+        for(let i = 0; i < HEIGHT; i++) {
+            boarddata[i] = [];
+            for(let j = 0; j < WIDTH; j++) {
+                boarddata[i][j] = 0;
+                $('#board').append('<div class="square" id="'+j+'_'+i+'" onmouseup="checkmine('+j+','+i+')" ><p></p></div>');
+            }
+        }
+        
+        function checkmine(x,y) {
+            if(mines.length == 0) 
+                firstclick(x,y);
+            
+            //Tjek om de vender korrekt
+            if(boarddata[y][x] === null){
+                console.log("Du tabte");
+            } else {
+                findingNeighbors(x, y);
+            }
+            
+        }
+
+        function findingNeighbors(i, j) {
+            //https://stackoverflow.com/a/19074651/10265092
+            var rowLimit = boarddata.length-1;
+            var columnLimit = boarddata[0].length-1;
+
+            for(var x = Math.max(0, i-1); x <= Math.min(i+1, rowLimit); x++) {
+                for(var y = Math.max(0, j-1); y <= Math.min(j+1, columnLimit); y++) {
+                    if(x !== i || y !== j) {
+                        //Tjek også om board[x][y] ikke har noget tekst
+                        if(boarddata[x][y] !== null);
+                            $(`#${x}_${y}`).text(`${boarddata[y][x]}`);
+                    }
+                }
+            }
+            $(`#${i}_${j}`).text(`${boarddata[x][y]}`);
+        }
+
+        function firstclick(x,y){
+            console.log("First");
+
+            var mines = generateMines(x,y);
+
+            var rowLimit = boarddata.length-1;
+            var columnLimit = boarddata[0].length-1;
+            mines.forEach(element => {
+                var i = element.x;
+                var j = element.y;
+                for(var x = Math.max(0, i-1); x <= Math.min(i+1, rowLimit); x++) {
+                    for(var y = Math.max(0, j-1); y <= Math.min(j+1, columnLimit); y++) {
+                        if((x !== i || y !== j) && boarddata[x][y] !== null) {
+                            boarddata[x][y] += 1;
+                        }
+                    }
+                }
+            });
+            console.log(boarddata);
+        }
+
+
+        function generateMines(xc,yc) {
+            mines = [{x: xc,y: yc}];
+
+            while(mines.length < MINES+1){
+                var w = Math.floor(Math.random() * WIDTH-1) + 1;
+                var h = Math.floor(Math.random() * HEIGHT-1) + 1;
+                mines.forEach(mine => {
+                    if (mine.x == w && mine.y == h)
+                        return false;
+                });
+                mines.push({x: w, y: h});
+            }
+            mines.shift();
+            
+            mines.forEach(elem => {
+                boarddata[elem.x][elem.y] = null;
+            });
+            return mines;
+        }
+        
+    </script>
+</body>
+</html>
