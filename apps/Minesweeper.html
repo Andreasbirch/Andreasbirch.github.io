@@ -45,16 +45,25 @@
         board.style.gridTemplateColumns = `repeat(${WIDTH}, 24px)`;
         board.innerHTML = ''
         var mines = [];
-
         var boarddata = [];
-        for(let i = 0; i < HEIGHT; i++) {
-            boarddata[i] = [];
-            for(let j = 0; j < WIDTH; j++) {
-                boarddata[i][j] = 0;
-                $('#board').append('<div class="square" id="'+j+'_'+i+'" onmouseup="checkmine('+j+','+i+')" ><p></p></div>');
+        
+        function generateBoard(mines) {
+            for(let i = 0; i < HEIGHT; i++) {
+                boarddata[i] = [];
+                for(let j = 0; j < WIDTH; j++) {
+                    const element = document.createElement('div class=square" id="'+j+'_'+i+'" onmouseup="checkmine('+j+','+i+')" ><p></p></div>');
+                    const tile = {
+                        x: j,
+                        y: i,
+                        element,
+                        isMine: mines.some(elem => elem.x === x, elem.y ===y),
+                    }
+                    boarddata[i][j] = tile;
+                    $('#board').append('<div class="square" id="'+j+'_'+i+'" onmouseup="checkmine('+j+','+i+')" ><p></p></div>');
+                }
             }
         }
-        
+
         function checkmine(x,y) {
             if(mines.length == 0) 
                 firstclick(x,y);

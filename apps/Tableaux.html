@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="jquery-3.6.0.js"></script>
+<title>Tableaux generator</title>
+</head>
+<style>
+    .square{
+        width: 20px;
+        height: 20px;
+        border-color: #fcfcfc #7b7b7b #7b7b7b #fcfcfc ;
+        border-style: solid;
+        border-width: 2px;
+        /* border-colo: 2px solid #7b7b7b; */
+        /* box-shadow: 2px 2px #fcfcfc inset; */
+        background-color: #bdbdbd;
+    }
+
+    #board{
+        display: grid;
+        border: 2px #bdbdbd solid;
+        /* grid-template-rows: 10;
+        grid-template-columns: 10; */
+    }
+</style>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <input type="text" id="inputField">
+            <button onclick="generateTableaux()">Generer</button>
+        </div>
+    </div>
+</div>
+
+<canvas id="cnvs" height="300px" width="450px"></canvas>
+
+<script>
+    function generateTableaux() {
+        var data = $('#inputField').val();
+        console.log("Clicked generate - value was: " + data);
+
+        drawOnCanvas();
+    }
+
+    function drawOnCanvas() {
+        var c = document.getElementById("cnvs");
+        var canvas = c.getContext("2d");
+        canvas.moveTo(0, 0);
+        canvas.lineTo(200, 100);
+        canvas.stroke();
+    }
+</script>
+</body>
+</html>

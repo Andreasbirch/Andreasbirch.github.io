@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="jquery-3.6.0.js"></script>
+<title>Page Title</title>
+</head>
+<style>
+    .square{
+        width: 20px;
+        height: 20px;
+        border-color: #fcfcfc #7b7b7b #7b7b7b #fcfcfc ;
+        border-style: solid;
+        border-width: 2px;
+        /* border-colo: 2px solid #7b7b7b; */
+        /* box-shadow: 2px 2px #fcfcfc inset; */
+        background-color: #bdbdbd;
+    }
+
+    #board{
+        display: grid;
+        border: 2px #bdbdbd solid;
+        /* grid-template-rows: 10;
+        grid-template-columns: 10; */
+    }
+</style>
+
+<body>
+
+<p>Minesweeper</p>
+
+<div class="container" id="board">
+</div>
+    <script>
+        const boardContainer = document.querySelector('#board');
+        const WIDTH = 10;
+        const HEIGHT = 10;
+        const MINES = 10;
+        const TILE_STATUSES = {
+            hidden: "hidden",
+            flag: "flag",
+            mine: "mine",
+            number: "number"
+        };
+
+        boardContainer.style.gridTemplateColumns = `repeat(${WIDTH}, 24px)`;
+        boardContainer.innerHTML = ''
+        var mines = [];
+        var board = [];
+        var firstclick = true;
+
+        generateBoard();
+        console.log(board);
+
+        function generateBoard() {
+            for (let y = 0; y < HEIGHT; y++) {
+                const row = [];
+                for (let x = 0; x < WIDTH; x++) {
+                    const element = generateElement(x,y);
+                    const tile = {
+                        x,
+                        y,
+                        element,
+                        status: TILE_STATUSES.hidden,
+                        adjacentMines: 0,
+                        isMine : false
+                    }
+                    $('#board').append(element);
+                    row.push(tile);
+                }
+                board.push(row);
+            }
+        }
+
+        function generateElement(x, y) {
+            var element = document.createElement('div');
+            element.id = x + "_" + y;
+            element.className = "square";
+            element.onclick = function() {
+                clickTile(x, y);
+            }
+            element.oncontextmenu = function(event) {
+                event.preventDefault();
+                flagTile(x,y);
+            }
+            return element;
+        }
+
+        function clickTile(x,y){
+            console.log(`Clicked tile: ${x}, ${y}`);
+
+            if(firstclick)
+                generateMines(x,y);
+                firstclick = false;
+
+            if(board[x][y].isMine){
+                console.log("Game over.");
+            } else {
+            }
+
+            drawEntireBoard();
+        }
+
+        function drawEntireBoard() {
+            for (let y = 0; y < HEIGHT; y++) {
+                for (let x = 0; x < WIDTH; x++) {
+                    $(`#${x}_${y}`).text(board[x][y].isMine? "M" : board[x][y].adjacentMines);
+                }
+            }
+        }
+
+        function flagTile(x,y) {
+            console.log(`Flagged tile: ${x}, ${y}`);
+        }
+
+        function updateMineAdjecentTiles(i, j) {
+            var rowLimit = board.length-1;
+            var columnLimit = board[0].length-1;
+
+            for(var x = Math.max(0, i-1); x <= Math.min(i+1, rowLimit); x++) {
+                for(var y = Math.max(0, j-1); y <= Math.min(j+1, columnLimit); y++) {
+                    if(x !== i || y !== j) {
+                        board[x][y].adjacentMines ++;
+                    }
+                }
+            }
+        }
+
+        function generateMines(xc,yc) {
+            mines = [{x: xc,y: yc}];
+
+            while(mines.length < MINES+1){
+                var w = Math.floor(Math.random() * WIDTH-1) + 1;
+                var h = Math.floor(Math.random() * HEIGHT-1) + 1;
+                mines.forEach(mine => {
+                    if (mine.x == w && mine.y == h)
+                        return false;
+                });
+                mines.push({x: w, y: h});
+            }
+            mines.shift();
+            
+            mines.forEach(elem => {
+                board[elem.x][elem.y].isMine = true;
+            });
+
+            mines.forEach(mine => {
+                updateMineAdjecentTiles(mine.x, mine.y);
+            });
+            console.log("Generated mines");
+            return mines;
+        }
+    </script>
+</body>
+</html>
