@@ -1,0 +1,34 @@
+{
+    "auctions": [
+        {
+            "id": 357275046,
+            "item": {
+                "id": 4306
+            },
+            "bid": 34500,
+            "buyout": 34500,
+            "quantity": 20,
+            "time_left": "SHORT"
+        },
+        {
+            "id": 357275114,
+            "item": {
+                "id": 4306
+            },
+            "bid": 34500,
+            "buyout": 34500,
+            "quantity": 20,
+            "time_left": "SHORT"
+        },
+        {
+            "id": 357286366,
+            "item": {
+                "id": 24477
+            },
+            "bid": 600,
+            "buyout": 600,
+            "quantity": 4,
+            "time_left": "SHORT"
+        }
+    ]   
+}
