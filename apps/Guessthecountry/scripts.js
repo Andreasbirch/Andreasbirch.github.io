@@ -36,12 +36,215 @@ function angleFromCoordinate(country1, country2) {
   // var angleRadians = Math.atan2(country2.longitude - country1.longitude, country2.latitude - country1.longitude);
   // angle in degrees
   var angleDeg = Math.atan2(country2.longitude - country1.longitude, country2.latitude - country1.latitude) * 180 / Math.PI;
-  console.log(angleDeg);
+  console.log("Angle from coordinate: ", angleDeg);
   return angleDeg;
 }
 
+const fnCountries = [ 
+  {"id":4,"alpha2":"af","alpha3":"afg","name":"Afghanistan"},
+  {"id":8,"alpha2":"al","alpha3":"alb","name":"Albania"},
+  {"id":12,"alpha2":"dz","alpha3":"dza","name":"Algeria"},
+  {"id":20,"alpha2":"ad","alpha3":"and","name":"Andorra"},
+  {"id":24,"alpha2":"ao","alpha3":"ago","name":"Angola"},
+  {"id":28,"alpha2":"ag","alpha3":"atg","name":"Antigua and Barbuda"},
+  {"id":32,"alpha2":"ar","alpha3":"arg","name":"Argentina"},
+  {"id":51,"alpha2":"am","alpha3":"arm","name":"Armenia"},
+  {"id":36,"alpha2":"au","alpha3":"aus","name":"Australia"},
+  {"id":40,"alpha2":"at","alpha3":"aut","name":"Austria"},
+  {"id":31,"alpha2":"az","alpha3":"aze","name":"Azerbaijan"},
+  {"id":44,"alpha2":"bs","alpha3":"bhs","name":"Bahamas"},
+  {"id":48,"alpha2":"bh","alpha3":"bhr","name":"Bahrain"},
+  {"id":50,"alpha2":"bd","alpha3":"bgd","name":"Bangladesh"},
+  {"id":52,"alpha2":"bb","alpha3":"brb","name":"Barbados"},
+  {"id":112,"alpha2":"by","alpha3":"blr","name":"Belarus"},
+  {"id":56,"alpha2":"be","alpha3":"bel","name":"Belgium"},
+  {"id":84,"alpha2":"bz","alpha3":"blz","name":"Belize"},
+  {"id":204,"alpha2":"bj","alpha3":"ben","name":"Benin"},
+  {"id":64,"alpha2":"bt","alpha3":"btn","name":"Bhutan"},
+  {"id":68,"alpha2":"bo","alpha3":"bol","name":"Bolivia"},
+  {"id":70,"alpha2":"ba","alpha3":"bih","name":"Bosnia and Herzegovina"},
+  {"id":72,"alpha2":"bw","alpha3":"bwa","name":"Botswana"},
+  {"id":76,"alpha2":"br","alpha3":"bra","name":"Brazil"},
+  {"id":96,"alpha2":"bn","alpha3":"brn","name":"Brunei Darussalam"},
+  {"id":100,"alpha2":"bg","alpha3":"bgr","name":"Bulgaria"},
+  {"id":854,"alpha2":"bf","alpha3":"bfa","name":"Burkina Faso"},
+  {"id":108,"alpha2":"bi","alpha3":"bdi","name":"Burundi"},
+  {"id":132,"alpha2":"cv","alpha3":"cpv","name":"Cabo Verde"},
+  {"id":116,"alpha2":"kh","alpha3":"khm","name":"Cambodia"},
+  {"id":120,"alpha2":"cm","alpha3":"cmr","name":"Cameroon"},
+  {"id":124,"alpha2":"ca","alpha3":"can","name":"Canada"},
+  {"id":140,"alpha2":"cf","alpha3":"caf","name":"Central African Republic"},
+  {"id":148,"alpha2":"td","alpha3":"tcd","name":"Chad"},
+  {"id":152,"alpha2":"cl","alpha3":"chl","name":"Chile"},
+  {"id":156,"alpha2":"cn","alpha3":"chn","name":"China"},
+  {"id":170,"alpha2":"co","alpha3":"col","name":"Colombia"},
+  {"id":174,"alpha2":"km","alpha3":"com","name":"Comoros"},
+  {"id":178,"alpha2":"cg","alpha3":"cog","name":"Congo"},
+  {"id":180,"alpha2":"cd","alpha3":"cod","name":"Democratic Republic of the Congo"},
+  {"id":188,"alpha2":"cr","alpha3":"cri","name":"Costa Rica"},
+  {"id":384,"alpha2":"ci","alpha3":"civ","name":"Côte d'Ivoire"},
+  {"id":191,"alpha2":"hr","alpha3":"hrv","name":"Croatia"},
+  {"id":192,"alpha2":"cu","alpha3":"cub","name":"Cuba"},
+  {"id":196,"alpha2":"cy","alpha3":"cyp","name":"Cyprus"},
+  {"id":203,"alpha2":"cz","alpha3":"cze","name":"Czechia"},
+  {"id":208,"alpha2":"dk","alpha3":"dnk","name":"Denmark"},
+  {"id":262,"alpha2":"dj","alpha3":"dji","name":"Djibouti"},
+  {"id":212,"alpha2":"dm","alpha3":"dma","name":"Dominica"},
+  {"id":214,"alpha2":"do","alpha3":"dom","name":"Dominican Republic"},
+  {"id":218,"alpha2":"ec","alpha3":"ecu","name":"Ecuador"},
+  {"id":818,"alpha2":"eg","alpha3":"egy","name":"Egypt"},
+  {"id":222,"alpha2":"sv","alpha3":"slv","name":"El Salvador"},
+  {"id":226,"alpha2":"gq","alpha3":"gnq","name":"Equatorial Guinea"},
+  {"id":232,"alpha2":"er","alpha3":"eri","name":"Eritrea"},
+  {"id":233,"alpha2":"ee","alpha3":"est","name":"Estonia"},
+  {"id":748,"alpha2":"sz","alpha3":"swz","name":"Eswatini"},
+  {"id":231,"alpha2":"et","alpha3":"eth","name":"Ethiopia"},
+  {"id":242,"alpha2":"fj","alpha3":"fji","name":"Fiji"},
+  {"id":246,"alpha2":"fi","alpha3":"fin","name":"Finland"},
+  {"id":250,"alpha2":"fr","alpha3":"fra","name":"France"},
+  {"id":266,"alpha2":"ga","alpha3":"gab","name":"Gabon"},
+  {"id":270,"alpha2":"gm","alpha3":"gmb","name":"Gambia"},
+  {"id":268,"alpha2":"ge","alpha3":"geo","name":"Georgia"},
+  {"id":276,"alpha2":"de","alpha3":"deu","name":"Germany"},
+  {"id":288,"alpha2":"gh","alpha3":"gha","name":"Ghana"},
+  {"id":300,"alpha2":"gr","alpha3":"grc","name":"Greece"},
+  {"id":308,"alpha2":"gd","alpha3":"grd","name":"Grenada"},
+  {"id":320,"alpha2":"gt","alpha3":"gtm","name":"Guatemala"},
+  {"id":324,"alpha2":"gn","alpha3":"gin","name":"Guinea"},
+  {"id":624,"alpha2":"gw","alpha3":"gnb","name":"Guinea-Bissau"},
+  {"id":328,"alpha2":"gy","alpha3":"guy","name":"Guyana"},
+  {"id":332,"alpha2":"ht","alpha3":"hti","name":"Haiti"},
+  {"id":340,"alpha2":"hn","alpha3":"hnd","name":"Honduras"},
+  {"id":348,"alpha2":"hu","alpha3":"hun","name":"Hungary"},
+  {"id":352,"alpha2":"is","alpha3":"isl","name":"Iceland"},
+  {"id":356,"alpha2":"in","alpha3":"ind","name":"India"},
+  {"id":360,"alpha2":"id","alpha3":"idn","name":"Indonesia"},
+  {"id":364,"alpha2":"ir","alpha3":"irn","name":"Iran"},
+  {"id":368,"alpha2":"iq","alpha3":"irq","name":"Iraq"},
+  {"id":372,"alpha2":"ie","alpha3":"irl","name":"Ireland"},
+  {"id":376,"alpha2":"il","alpha3":"isr","name":"Israel"},
+  {"id":380,"alpha2":"it","alpha3":"ita","name":"Italy"},
+  {"id":388,"alpha2":"jm","alpha3":"jam","name":"Jamaica"},
+  {"id":392,"alpha2":"jp","alpha3":"jpn","name":"Japan"},
+  {"id":400,"alpha2":"jo","alpha3":"jor","name":"Jordan"},
+  {"id":398,"alpha2":"kz","alpha3":"kaz","name":"Kazakhstan"},
+  {"id":404,"alpha2":"ke","alpha3":"ken","name":"Kenya"},
+  {"id":296,"alpha2":"ki","alpha3":"kir","name":"Kiribati"},
+  {"id":408,"alpha2":"kp","alpha3":"prk","name":"Democratic People's Republic of Korea"},
+  {"id":410,"alpha2":"kr","alpha3":"kor","name":"Republic of Korea"},
+  {"id":414,"alpha2":"kw","alpha3":"kwt","name":"Kuwait"},
+  {"id":417,"alpha2":"kg","alpha3":"kgz","name":"Kyrgyzstan"},
+  {"id":418,"alpha2":"la","alpha3":"lao","name":"Lao People's Democratic Republic"},
+  {"id":428,"alpha2":"lv","alpha3":"lva","name":"Latvia"},
+  {"id":422,"alpha2":"lb","alpha3":"lbn","name":"Lebanon"},
+  {"id":426,"alpha2":"ls","alpha3":"lso","name":"Lesotho"},
+  {"id":430,"alpha2":"lr","alpha3":"lbr","name":"Liberia"},
+  {"id":434,"alpha2":"ly","alpha3":"lby","name":"Libya"},
+  {"id":438,"alpha2":"li","alpha3":"lie","name":"Liechtenstein"},
+  {"id":440,"alpha2":"lt","alpha3":"ltu","name":"Lithuania"},
+  {"id":442,"alpha2":"lu","alpha3":"lux","name":"Luxembourg"},
+  {"id":450,"alpha2":"mg","alpha3":"mdg","name":"Madagascar"},
+  {"id":454,"alpha2":"mw","alpha3":"mwi","name":"Malawi"},
+  {"id":458,"alpha2":"my","alpha3":"mys","name":"Malaysia"},
+  {"id":462,"alpha2":"mv","alpha3":"mdv","name":"Maldives"},
+  {"id":466,"alpha2":"ml","alpha3":"mli","name":"Mali"},
+  {"id":470,"alpha2":"mt","alpha3":"mlt","name":"Malta"},
+  {"id":584,"alpha2":"mh","alpha3":"mhl","name":"Marshall Islands"},
+  {"id":478,"alpha2":"mr","alpha3":"mrt","name":"Mauritania"},
+  {"id":480,"alpha2":"mu","alpha3":"mus","name":"Mauritius"},
+  {"id":484,"alpha2":"mx","alpha3":"mex","name":"Mexico"},
+  {"id":583,"alpha2":"fm","alpha3":"fsm","name":"Micronesia"},
+  {"id":498,"alpha2":"md","alpha3":"mda","name":"Republic of Moldova"},
+  {"id":492,"alpha2":"mc","alpha3":"mco","name":"Monaco"},
+  {"id":496,"alpha2":"mn","alpha3":"mng","name":"Mongolia"},
+  {"id":499,"alpha2":"me","alpha3":"mne","name":"Montenegro"},
+  {"id":504,"alpha2":"ma","alpha3":"mar","name":"Morocco"},
+  {"id":508,"alpha2":"mz","alpha3":"moz","name":"Mozambique"},
+  {"id":104,"alpha2":"mm","alpha3":"mmr","name":"Myanmar"},
+  {"id":516,"alpha2":"na","alpha3":"nam","name":"Namibia"},
+  {"id":520,"alpha2":"nr","alpha3":"nru","name":"Nauru"},
+  {"id":524,"alpha2":"np","alpha3":"npl","name":"Nepal"},
+  {"id":528,"alpha2":"nl","alpha3":"nld","name":"Netherlands"},
+  {"id":554,"alpha2":"nz","alpha3":"nzl","name":"New Zealand"},
+  {"id":558,"alpha2":"ni","alpha3":"nic","name":"Nicaragua"},
+  {"id":562,"alpha2":"ne","alpha3":"ner","name":"Niger"},
+  {"id":566,"alpha2":"ng","alpha3":"nga","name":"Nigeria"},
+  {"id":807,"alpha2":"mk","alpha3":"mkd","name":"North Macedonia"},
+  {"id":578,"alpha2":"no","alpha3":"nor","name":"Norway"},
+  {"id":512,"alpha2":"om","alpha3":"omn","name":"Oman"},
+  {"id":586,"alpha2":"pk","alpha3":"pak","name":"Pakistan"},
+  {"id":585,"alpha2":"pw","alpha3":"plw","name":"Palau"},
+  {"id":591,"alpha2":"pa","alpha3":"pan","name":"Panama"},
+  {"id":598,"alpha2":"pg","alpha3":"png","name":"Papua New Guinea"},
+  {"id":600,"alpha2":"py","alpha3":"pry","name":"Paraguay"},
+  {"id":604,"alpha2":"pe","alpha3":"per","name":"Peru"},
+  {"id":608,"alpha2":"ph","alpha3":"phl","name":"Philippines"},
+  {"id":616,"alpha2":"pl","alpha3":"pol","name":"Poland"},
+  {"id":620,"alpha2":"pt","alpha3":"prt","name":"Portugal"},
+  {"id":634,"alpha2":"qa","alpha3":"qat","name":"Qatar"},
+  {"id":642,"alpha2":"ro","alpha3":"rou","name":"Romania"},
+  {"id":643,"alpha2":"ru","alpha3":"rus","name":"Russian Federation"},
+  {"id":646,"alpha2":"rw","alpha3":"rwa","name":"Rwanda"},
+  {"id":659,"alpha2":"kn","alpha3":"kna","name":"Saint Kitts and Nevis"},
+  {"id":662,"alpha2":"lc","alpha3":"lca","name":"Saint Lucia"},
+  {"id":670,"alpha2":"vc","alpha3":"vct","name":"Saint Vincent and the Grenadines"},
+  {"id":882,"alpha2":"ws","alpha3":"wsm","name":"Samoa"},
+  {"id":674,"alpha2":"sm","alpha3":"smr","name":"San Marino"},
+  {"id":678,"alpha2":"st","alpha3":"stp","name":"Sao Tome and Principe"},
+  {"id":682,"alpha2":"sa","alpha3":"sau","name":"Saudi Arabia"},
+  {"id":686,"alpha2":"sn","alpha3":"sen","name":"Senegal"},
+  {"id":688,"alpha2":"rs","alpha3":"srb","name":"Serbia"},
+  {"id":690,"alpha2":"sc","alpha3":"syc","name":"Seychelles"},
+  {"id":694,"alpha2":"sl","alpha3":"sle","name":"Sierra Leone"},
+  {"id":702,"alpha2":"sg","alpha3":"sgp","name":"Singapore"},
+  {"id":703,"alpha2":"sk","alpha3":"svk","name":"Slovakia"},
+  {"id":705,"alpha2":"si","alpha3":"svn","name":"Slovenia"},
+  {"id":90,"alpha2":"sb","alpha3":"slb","name":"Solomon Islands"},
+  {"id":706,"alpha2":"so","alpha3":"som","name":"Somalia"},
+  {"id":710,"alpha2":"za","alpha3":"zaf","name":"South Africa"},
+  {"id":728,"alpha2":"ss","alpha3":"ssd","name":"South Sudan"},
+  {"id":724,"alpha2":"es","alpha3":"esp","name":"Spain"},
+  {"id":144,"alpha2":"lk","alpha3":"lka","name":"Sri Lanka"},
+  {"id":729,"alpha2":"sd","alpha3":"sdn","name":"Sudan"},
+  {"id":740,"alpha2":"sr","alpha3":"sur","name":"Suriname"},
+  {"id":752,"alpha2":"se","alpha3":"swe","name":"Sweden"},
+  {"id":756,"alpha2":"ch","alpha3":"che","name":"Switzerland"},
+  {"id":760,"alpha2":"sy","alpha3":"syr","name":"Syrian Arab Republic"},
+  {"id":762,"alpha2":"tj","alpha3":"tjk","name":"Tajikistan"},
+  {"id":834,"alpha2":"tz","alpha3":"tza","name":"Tanzania"},
+  {"id":764,"alpha2":"th","alpha3":"tha","name":"Thailand"},
+  {"id":626,"alpha2":"tl","alpha3":"tls","name":"Timor-Leste"},
+  {"id":768,"alpha2":"tg","alpha3":"tgo","name":"Togo"},
+  {"id":776,"alpha2":"to","alpha3":"ton","name":"Tonga"},
+  {"id":780,"alpha2":"tt","alpha3":"tto","name":"Trinidad and Tobago"},
+  {"id":788,"alpha2":"tn","alpha3":"tun","name":"Tunisia"},
+  {"id":792,"alpha2":"tr","alpha3":"tur","name":"Türkiye"},
+  {"id":795,"alpha2":"tm","alpha3":"tkm","name":"Turkmenistan"},
+  {"id":798,"alpha2":"tv","alpha3":"tuv","name":"Tuvalu"},
+  {"id":800,"alpha2":"ug","alpha3":"uga","name":"Uganda"},
+  {"id":804,"alpha2":"ua","alpha3":"ukr","name":"Ukraine"},
+  {"id":784,"alpha2":"ae","alpha3":"are","name":"United Arab Emirates"},
+  {"id":826,"alpha2":"gb","alpha3":"gbr","name":"United Kingdom of Great Britain and Northern Ireland"},
+  {"id":840,"alpha2":"us","alpha3":"usa","name":"United States of America"},
+  {"id":858,"alpha2":"uy","alpha3":"ury","name":"Uruguay"},
+  {"id":860,"alpha2":"uz","alpha3":"uzb","name":"Uzbekistan"},
+  {"id":548,"alpha2":"vu","alpha3":"vut","name":"Vanuatu"},
+  {"id":862,"alpha2":"ve","alpha3":"ven","name":"Venezuela"},
+  {"id":704,"alpha2":"vn","alpha3":"vnm","name":"Vietnam"},
+  {"id":887,"alpha2":"ye","alpha3":"yem","name":"Yemen"},
+  {"id":894,"alpha2":"zm","alpha3":"zmb","name":"Zambia"},
+  {"id":716,"alpha2":"zw","alpha3":"zwe","name":"Zimbabwe"}
+]
 
 const mapdata = [
+  {
+        "country" : "Afghanistan",
+        "alpha2" : "AF",
+        "alpha3" : "AFG",
+        "numeric" : 4,
+        "latitude" : 33,
+        "longitude" : 65
+      },
   {
         "country" : "Albania",
         "alpha2" : "AL",
@@ -59,14 +262,6 @@ const mapdata = [
         "longitude" : 3
       },
   {
-        "country" : "American Samoa",
-        "alpha2" : "AS",
-        "alpha3" : "ASM",
-        "numeric" : 16,
-        "latitude" : -14.3333,
-        "longitude" : -170
-      },
-  {
         "country" : "Andorra",
         "alpha2" : "AD",
         "alpha3" : "AND",
@@ -81,22 +276,6 @@ const mapdata = [
         "numeric" : 24,
         "latitude" : -12.5,
         "longitude" : 18.5
-      },
-  {
-        "country" : "Anguilla",
-        "alpha2" : "AI",
-        "alpha3" : "AIA",
-        "numeric" : 660,
-        "latitude" : 18.25,
-        "longitude" : -63.1667
-      },
-  {
-        "country" : "Antarctica",
-        "alpha2" : "AQ",
-        "alpha3" : "ATA",
-        "numeric" : 10,
-        "latitude" : -90,
-        "longitude" : 0
       },
   {
         "country" : "Antigua and Barbuda",
@@ -121,14 +300,6 @@ const mapdata = [
         "numeric" : 51,
         "latitude" : 40,
         "longitude" : 45
-      },
-  {
-        "country" : "Aruba",
-        "alpha2" : "AW",
-        "alpha3" : "ABW",
-        "numeric" : 533,
-        "latitude" : 12.5,
-        "longitude" : -69.9667
       },
   {
         "country" : "Australia",
@@ -219,14 +390,6 @@ const mapdata = [
         "longitude" : 2.25
       },
   {
-        "country" : "Bermuda",
-        "alpha2" : "BM",
-        "alpha3" : "BMU",
-        "numeric" : 60,
-        "latitude" : 32.3333,
-        "longitude" : -64.75
-      },
-  {
         "country" : "Bhutan",
         "alpha2" : "BT",
         "alpha3" : "BTN",
@@ -259,28 +422,12 @@ const mapdata = [
         "longitude" : 24
       },
   {
-        "country" : "Bouvet Island",
-        "alpha2" : "BV",
-        "alpha3" : "BVT",
-        "numeric" : 74,
-        "latitude" : -54.4333,
-        "longitude" : 3.4
-      },
-  {
         "country" : "Brazil",
         "alpha2" : "BR",
         "alpha3" : "BRA",
         "numeric" : 76,
         "latitude" : -10,
         "longitude" : -55
-      },
-  {
-        "country" : "British Indian Ocean Territory",
-        "alpha2" : "IO",
-        "alpha3" : "IOT",
-        "numeric" : 86,
-        "latitude" : -6,
-        "longitude" : 71.5
       },
   {
         "country" : "Brunei Darussalam",
@@ -347,14 +494,6 @@ const mapdata = [
         "longitude" : -24
       },
   {
-        "country" : "Cayman Islands",
-        "alpha2" : "KY",
-        "alpha3" : "CYM",
-        "numeric" : 136,
-        "latitude" : 19.5,
-        "longitude" : -80.5
-      },
-  {
         "country" : "Central African Republic",
         "alpha2" : "CF",
         "alpha3" : "CAF",
@@ -387,22 +526,6 @@ const mapdata = [
         "longitude" : 105
       },
   {
-        "country" : "Christmas Island",
-        "alpha2" : "CX",
-        "alpha3" : "CXR",
-        "numeric" : 162,
-        "latitude" : -10.5,
-        "longitude" : 105.6667
-      },
-  {
-        "country" : "Cocos (Keeling) Islands",
-        "alpha2" : "CC",
-        "alpha3" : "CCK",
-        "numeric" : 166,
-        "latitude" : -12.5,
-        "longitude" : 96.8333
-      },
-  {
         "country" : "Colombia",
         "alpha2" : "CO",
         "alpha3" : "COL",
@@ -433,14 +556,6 @@ const mapdata = [
         "numeric" : 180,
         "latitude" : 0,
         "longitude" : 25
-      },
-  {
-        "country" : "Cook Islands",
-        "alpha2" : "CK",
-        "alpha3" : "COK",
-        "numeric" : 184,
-        "latitude" : -21.2333,
-        "longitude" : -159.7667
       },
   {
         "country" : "Costa Rica",
@@ -579,14 +694,6 @@ const mapdata = [
         "longitude" : 38
       },
   {
-        "country" : "Falkland Islands (Malvinas)",
-        "alpha2" : "FK",
-        "alpha3" : "FLK",
-        "numeric" : 238,
-        "latitude" : -51.75,
-        "longitude" : -59
-      },
-  {
         "country" : "Faroe Islands",
         "alpha2" : "FO",
         "alpha3" : "FRO",
@@ -635,14 +742,6 @@ const mapdata = [
         "longitude" : -140
       },
   {
-        "country" : "French Southern Territories",
-        "alpha2" : "TF",
-        "alpha3" : "ATF",
-        "numeric" : 260,
-        "latitude" : -43,
-        "longitude" : 67
-      },
-  {
         "country" : "Gabon",
         "alpha2" : "GA",
         "alpha3" : "GAB",
@@ -683,14 +782,6 @@ const mapdata = [
         "longitude" : -2
       },
   {
-        "country" : "Gibraltar",
-        "alpha2" : "GI",
-        "alpha3" : "GIB",
-        "numeric" : 292,
-        "latitude" : 36.1833,
-        "longitude" : -5.3667
-      },
-  {
         "country" : "Greece",
         "alpha2" : "GR",
         "alpha3" : "GRC",
@@ -715,36 +806,12 @@ const mapdata = [
         "longitude" : -61.6667
       },
   {
-        "country" : "Guadeloupe",
-        "alpha2" : "GP",
-        "alpha3" : "GLP",
-        "numeric" : 312,
-        "latitude" : 16.25,
-        "longitude" : -61.5833
-      },
-  {
-        "country" : "Guam",
-        "alpha2" : "GU",
-        "alpha3" : "GUM",
-        "numeric" : 316,
-        "latitude" : 13.4667,
-        "longitude" : 144.7833
-      },
-  {
         "country" : "Guatemala",
         "alpha2" : "GT",
         "alpha3" : "GTM",
         "numeric" : 320,
         "latitude" : 15.5,
         "longitude" : -90.25
-      },
-  {
-        "country" : "Guernsey",
-        "alpha2" : "GG",
-        "alpha3" : "GGY",
-        "numeric" : 831,
-        "latitude" : 49.5,
-        "longitude" : -2.56
       },
   {
         "country" : "Guinea",
@@ -779,14 +846,6 @@ const mapdata = [
         "longitude" : -72.4167
       },
   {
-        "country" : "Heard Island and McDonald Islands",
-        "alpha2" : "HM",
-        "alpha3" : "HMD",
-        "numeric" : 334,
-        "latitude" : -53.1,
-        "longitude" : 72.5167
-      },
-  {
         "country" : "Vatican City",
         "alpha2" : "VA",
         "alpha3" : "VAT",
@@ -801,14 +860,6 @@ const mapdata = [
         "numeric" : 340,
         "latitude" : 15,
         "longitude" : -86.5
-      },
-  {
-        "country" : "Hong Kong",
-        "alpha2" : "HK",
-        "alpha3" : "HKG",
-        "numeric" : 344,
-        "latitude" : 22.25,
-        "longitude" : 114.1667
       },
   {
         "country" : "Hungary",
@@ -867,14 +918,6 @@ const mapdata = [
         "longitude" : -8
       },
   {
-        "country" : "Isle of Man",
-        "alpha2" : "IM",
-        "alpha3" : "IMN",
-        "numeric" : 833,
-        "latitude" : 54.23,
-        "longitude" : -4.55
-      },
-  {
         "country" : "Israel",
         "alpha2" : "IL",
         "alpha3" : "ISR",
@@ -905,14 +948,6 @@ const mapdata = [
         "numeric" : 392,
         "latitude" : 36,
         "longitude" : 138
-      },
-  {
-        "country" : "Jersey",
-        "alpha2" : "JE",
-        "alpha3" : "JEY",
-        "numeric" : 832,
-        "latitude" : 49.21,
-        "longitude" : -2.13
       },
   {
         "country" : "Jordan",
@@ -1051,14 +1086,6 @@ const mapdata = [
         "longitude" : 6.1667
       },
   {
-        "country" : "Macao",
-        "alpha2" : "MO",
-        "alpha3" : "MAC",
-        "numeric" : 446,
-        "latitude" : 22.1667,
-        "longitude" : 113.55
-      },
-  {
         "country" : "Macedonia, the former Yugoslav Republic of",
         "alpha2" : "MK",
         "alpha3" : "MKD",
@@ -1123,14 +1150,6 @@ const mapdata = [
         "longitude" : 168
       },
   {
-        "country" : "Martinique",
-        "alpha2" : "MQ",
-        "alpha3" : "MTQ",
-        "numeric" : 474,
-        "latitude" : 14.6667,
-        "longitude" : -61
-      },
-  {
         "country" : "Mauritania",
         "alpha2" : "MR",
         "alpha3" : "MRT",
@@ -1145,14 +1164,6 @@ const mapdata = [
         "numeric" : 480,
         "latitude" : -20.2833,
         "longitude" : 57.55
-      },
-  {
-        "country" : "Mayotte",
-        "alpha2" : "YT",
-        "alpha3" : "MYT",
-        "numeric" : 175,
-        "latitude" : -12.8333,
-        "longitude" : 45.1667
       },
   {
         "country" : "Mexico",
@@ -1193,14 +1204,6 @@ const mapdata = [
         "numeric" : 499,
         "latitude" : 42,
         "longitude" : 19
-      },
-  {
-        "country" : "Montserrat",
-        "alpha2" : "MS",
-        "alpha3" : "MSR",
-        "numeric" : 500,
-        "latitude" : 16.75,
-        "longitude" : -62.2
       },
   {
         "country" : "Morocco",
@@ -1259,22 +1262,6 @@ const mapdata = [
         "longitude" : 5.75
       },
   {
-        "country" : "Netherlands Antilles",
-        "alpha2" : "AN",
-        "alpha3" : "ANT",
-        "numeric" : 530,
-        "latitude" : 12.25,
-        "longitude" : -68.75
-      },
-  {
-        "country" : "New Caledonia",
-        "alpha2" : "NC",
-        "alpha3" : "NCL",
-        "numeric" : 540,
-        "latitude" : -21.5,
-        "longitude" : 165.5
-      },
-  {
         "country" : "New Zealand",
         "alpha2" : "NZ",
         "alpha3" : "NZL",
@@ -1305,22 +1292,6 @@ const mapdata = [
         "numeric" : 566,
         "latitude" : 10,
         "longitude" : 8
-      },
-  {
-        "country" : "Niue",
-        "alpha2" : "NU",
-        "alpha3" : "NIU",
-        "numeric" : 570,
-        "latitude" : -19.0333,
-        "longitude" : -169.8667
-      },
-  {
-        "country" : "Norfolk Island",
-        "alpha2" : "NF",
-        "alpha3" : "NFK",
-        "numeric" : 574,
-        "latitude" : -29.0333,
-        "longitude" : 167.95
       },
   {
         "country" : "Norway",
@@ -1403,14 +1374,6 @@ const mapdata = [
         "longitude" : 122
       },
   {
-        "country" : "Pitcairn",
-        "alpha2" : "PN",
-        "alpha3" : "PCN",
-        "numeric" : 612,
-        "latitude" : -24.7,
-        "longitude" : -127.4
-      },
-  {
         "country" : "Poland",
         "alpha2" : "PL",
         "alpha3" : "POL",
@@ -1441,14 +1404,6 @@ const mapdata = [
         "numeric" : 634,
         "latitude" : 25.5,
         "longitude" : 51.25
-      },
-  {
-        "country" : "Réunion",
-        "alpha2" : "RE",
-        "alpha3" : "REU",
-        "numeric" : 638,
-        "latitude" : -21.1,
-        "longitude" : 55.6
       },
   {
         "country" : "Romania",
@@ -1497,14 +1452,6 @@ const mapdata = [
         "numeric" : 662,
         "latitude" : 13.8833,
         "longitude" : -61.1333
-      },
-  {
-        "country" : "Saint Pierre and Miquelon",
-        "alpha2" : "PM",
-        "alpha3" : "SPM",
-        "numeric" : 666,
-        "latitude" : 46.8333,
-        "longitude" : -56.3333
       },
   {
         "country" : "Saint Vincent and the Grenadines",
@@ -1627,14 +1574,6 @@ const mapdata = [
         "longitude" : 24
       },
   {
-        "country" : "South Georgia and the South Sandwich Islands",
-        "alpha2" : "GS",
-        "alpha3" : "SGS",
-        "numeric" : 239,
-        "latitude" : -54.5,
-        "longitude" : -37
-      },
-  {
         "country" : "Spain",
         "alpha2" : "ES",
         "alpha3" : "ESP",
@@ -1665,14 +1604,6 @@ const mapdata = [
         "numeric" : 740,
         "latitude" : 4,
         "longitude" : -56
-      },
-  {
-        "country" : "Svalbard and Jan Mayen",
-        "alpha2" : "SJ",
-        "alpha3" : "SJM",
-        "numeric" : 744,
-        "latitude" : 78,
-        "longitude" : 20
       },
   {
         "country" : "Swaziland",
@@ -1755,14 +1686,6 @@ const mapdata = [
         "longitude" : 1.1667
       },
   {
-        "country" : "Tokelau",
-        "alpha2" : "TK",
-        "alpha3" : "TKL",
-        "numeric" : 772,
-        "latitude" : -9,
-        "longitude" : -172
-      },
-  {
         "country" : "Tonga",
         "alpha2" : "TO",
         "alpha3" : "TON",
@@ -1801,14 +1724,6 @@ const mapdata = [
         "numeric" : 795,
         "latitude" : 40,
         "longitude" : 60
-      },
-  {
-        "country" : "Turks and Caicos Islands",
-        "alpha2" : "TC",
-        "alpha3" : "TCA",
-        "numeric" : 796,
-        "latitude" : 21.75,
-        "longitude" : -71.5833
       },
   {
         "country" : "Uganda",
@@ -1883,44 +1798,12 @@ const mapdata = [
         "longitude" : -66
       },
   {
-        "country" : "Viet Nam",
+        "country" : "Vietnam",
         "alpha2" : "VN",
         "alpha3" : "VNM",
         "numeric" : 704,
         "latitude" : 16,
         "longitude" : 106
-      },
-  {
-        "country" : "Virgin Islands, British",
-        "alpha2" : "VG",
-        "alpha3" : "VGB",
-        "numeric" : 92,
-        "latitude" : 18.5,
-        "longitude" : -64.5
-      },
-  {
-        "country" : "Virgin Islands, U.S.",
-        "alpha2" : "VI",
-        "alpha3" : "VIR",
-        "numeric" : 850,
-        "latitude" : 18.3333,
-        "longitude" : -64.8333
-      },
-  {
-        "country" : "Wallis and Futuna",
-        "alpha2" : "WF",
-        "alpha3" : "WLF",
-        "numeric" : 876,
-        "latitude" : -13.3,
-        "longitude" : -176.2
-      },
-  {
-        "country" : "Western Sahara",
-        "alpha2" : "EH",
-        "alpha3" : "ESH",
-        "numeric" : 732,
-        "latitude" : 24.5,
-        "longitude" : -13
       },
   {
         "country" : "Yemen",
@@ -1946,287 +1829,43 @@ const mapdata = [
         "latitude" : -20,
         "longitude" : 30
       },
-  {
-        "country" : "Afghanistan",
-        "alpha2" : "AF",
-        "alpha3" : "AFG",
-        "numeric" : 4,
-        "latitude" : 33,
-        "longitude" : 65
-      }
 ];
 
-const fnCountries = [ 
-  {"name": "Afghanistan", "code": "AF"}, 
-  {"name": "land Islands", "code": "AX"}, 
-  {"name": "Albania", "code": "AL"}, 
-  {"name": "Algeria", "code": "DZ"}, 
-  {"name": "American Samoa", "code": "AS"}, 
-  {"name": "AndorrA", "code": "AD"}, 
-  {"name": "Angola", "code": "AO"}, 
-  {"name": "Anguilla", "code": "AI"}, 
-  {"name": "Antarctica", "code": "AQ"}, 
-  {"name": "Antigua and Barbuda", "code": "AG"}, 
-  {"name": "Argentina", "code": "AR"}, 
-  {"name": "Armenia", "code": "AM"}, 
-  {"name": "Aruba", "code": "AW"}, 
-  {"name": "Australia", "code": "AU"}, 
-  {"name": "Austria", "code": "AT"}, 
-  {"name": "Azerbaijan", "code": "AZ"}, 
-  {"name": "Bahamas", "code": "BS"}, 
-  {"name": "Bahrain", "code": "BH"}, 
-  {"name": "Bangladesh", "code": "BD"}, 
-  {"name": "Barbados", "code": "BB"}, 
-  {"name": "Belarus", "code": "BY"}, 
-  {"name": "Belgium", "code": "BE"}, 
-  {"name": "Belize", "code": "BZ"}, 
-  {"name": "Benin", "code": "BJ"}, 
-  {"name": "Bermuda", "code": "BM"}, 
-  {"name": "Bhutan", "code": "BT"}, 
-  {"name": "Bolivia", "code": "BO"}, 
-  {"name": "Bosnia and Herzegovina", "code": "BA"}, 
-  {"name": "Botswana", "code": "BW"}, 
-  {"name": "Bouvet Island", "code": "BV"}, 
-  {"name": "Brazil", "code": "BR"}, 
-  {"name": "British Indian Ocean Territory", "code": "IO"}, 
-  {"name": "Brunei Darussalam", "code": "BN"}, 
-  {"name": "Bulgaria", "code": "BG"}, 
-  {"name": "Burkina Faso", "code": "BF"}, 
-  {"name": "Burundi", "code": "BI"}, 
-  {"name": "Cambodia", "code": "KH"}, 
-  {"name": "Cameroon", "code": "CM"}, 
-  {"name": "Canada", "code": "CA"}, 
-  {"name": "Cape Verde", "code": "CV"}, 
-  {"name": "Cayman Islands", "code": "KY"}, 
-  {"name": "Central African Republic", "code": "CF"}, 
-  {"name": "Chad", "code": "TD"}, 
-  {"name": "Chile", "code": "CL"}, 
-  {"name": "China", "code": "CN"}, 
-  {"name": "Christmas Island", "code": "CX"}, 
-  {"name": "Cocos (Keeling) Islands", "code": "CC"}, 
-  {"name": "Colombia", "code": "CO"}, 
-  {"name": "Comoros", "code": "KM"}, 
-  {"name": "Congo", "code": "CG"}, 
-  {"name": "Congo, The Democratic Republic of the", "code": "CD"}, 
-  {"name": "Cook Islands", "code": "CK"}, 
-  {"name": "Costa Rica", "code": "CR"}, 
-  {"name": "Cote D'Ivoire", "code": "CI"}, 
-  {"name": "Croatia", "code": "HR"}, 
-  {"name": "Cuba", "code": "CU"}, 
-  {"name": "Cyprus", "code": "CY"}, 
-  {"name": "Czech Republic", "code": "CZ"}, 
-  {"name": "Denmark", "code": "DK"}, 
-  {"name": "Djibouti", "code": "DJ"}, 
-  {"name": "Dominica", "code": "DM"}, 
-  {"name": "Dominican Republic", "code": "DO"}, 
-  {"name": "Ecuador", "code": "EC"}, 
-  {"name": "Egypt", "code": "EG"}, 
-  {"name": "El Salvador", "code": "SV"}, 
-  {"name": "Equatorial Guinea", "code": "GQ"}, 
-  {"name": "Eritrea", "code": "ER"}, 
-  {"name": "Estonia", "code": "EE"}, 
-  {"name": "Ethiopia", "code": "ET"}, 
-  {"name": "Falkland Islands (Malvinas)", "code": "FK"}, 
-  {"name": "Faroe Islands", "code": "FO"}, 
-  {"name": "Fiji", "code": "FJ"}, 
-  {"name": "Finland", "code": "FI"}, 
-  {"name": "France", "code": "FR"}, 
-  {"name": "French Guiana", "code": "GF"}, 
-  {"name": "French Polynesia", "code": "PF"}, 
-  {"name": "French Southern Territories", "code": "TF"}, 
-  {"name": "Gabon", "code": "GA"}, 
-  {"name": "Gambia", "code": "GM"}, 
-  {"name": "Georgia", "code": "GE"}, 
-  {"name": "Germany", "code": "DE"}, 
-  {"name": "Ghana", "code": "GH"}, 
-  {"name": "Gibraltar", "code": "GI"}, 
-  {"name": "Greece", "code": "GR"}, 
-  {"name": "Greenland", "code": "GL"}, 
-  {"name": "Grenada", "code": "GD"}, 
-  {"name": "Guadeloupe", "code": "GP"}, 
-  {"name": "Guam", "code": "GU"}, 
-  {"name": "Guatemala", "code": "GT"}, 
-  {"name": "Guernsey", "code": "GG"}, 
-  {"name": "Guinea", "code": "GN"}, 
-  {"name": "Guinea-Bissau", "code": "GW"}, 
-  {"name": "Guyana", "code": "GY"}, 
-  {"name": "Haiti", "code": "HT"}, 
-  {"name": "Heard Island and Mcdonald Islands", "code": "HM"}, 
-  {"name": "Holy See (Vatican City State)", "code": "VA"}, 
-  {"name": "Honduras", "code": "HN"}, 
-  {"name": "Hong Kong", "code": "HK"}, 
-  {"name": "Hungary", "code": "HU"}, 
-  {"name": "Iceland", "code": "IS"}, 
-  {"name": "India", "code": "IN"}, 
-  {"name": "Indonesia", "code": "ID"}, 
-  {"name": "Iran, Islamic Republic Of", "code": "IR"}, 
-  {"name": "Iraq", "code": "IQ"}, 
-  {"name": "Ireland", "code": "IE"}, 
-  {"name": "Isle of Man", "code": "IM"}, 
-  {"name": "Israel", "code": "IL"}, 
-  {"name": "Italy", "code": "IT"}, 
-  {"name": "Jamaica", "code": "JM"}, 
-  {"name": "Japan", "code": "JP"}, 
-  {"name": "Jersey", "code": "JE"}, 
-  {"name": "Jordan", "code": "JO"}, 
-  {"name": "Kazakhstan", "code": "KZ"}, 
-  {"name": "Kenya", "code": "KE"}, 
-  {"name": "Kiribati", "code": "KI"}, 
-  {"name": "Korea, Democratic People's Republic of", "code": "KP"}, 
-  {"name": "Korea, Republic of", "code": "KR"}, 
-  {"name": "Kuwait", "code": "KW"}, 
-  {"name": "Kyrgyzstan", "code": "KG"}, 
-  {"name": "Lao People's Democratic Republic", "code": "LA"}, 
-  {"name": "Latvia", "code": "LV"}, 
-  {"name": "Lebanon", "code": "LB"}, 
-  {"name": "Lesotho", "code": "LS"}, 
-  {"name": "Liberia", "code": "LR"}, 
-  {"name": "Libyan Arab Jamahiriya", "code": "LY"}, 
-  {"name": "Liechtenstein", "code": "LI"}, 
-  {"name": "Lithuania", "code": "LT"}, 
-  {"name": "Luxembourg", "code": "LU"}, 
-  {"name": "Macao", "code": "MO"}, 
-  {"name": "Macedonia, The Former Yugoslav Republic of", "code": "MK"}, 
-  {"name": "Madagascar", "code": "MG"}, 
-  {"name": "Malawi", "code": "MW"}, 
-  {"name": "Malaysia", "code": "MY"}, 
-  {"name": "Maldives", "code": "MV"}, 
-  {"name": "Mali", "code": "ML"}, 
-  {"name": "Malta", "code": "MT"}, 
-  {"name": "Marshall Islands", "code": "MH"}, 
-  {"name": "Martinique", "code": "MQ"}, 
-  {"name": "Mauritania", "code": "MR"}, 
-  {"name": "Mauritius", "code": "MU"}, 
-  {"name": "Mayotte", "code": "YT"}, 
-  {"name": "Mexico", "code": "MX"}, 
-  {"name": "Micronesia, Federated States of", "code": "FM"}, 
-  {"name": "Moldova, Republic of", "code": "MD"}, 
-  {"name": "Monaco", "code": "MC"}, 
-  {"name": "Mongolia", "code": "MN"}, 
-  {"name": "Montenegro", "code": "ME"},
-  {"name": "Montserrat", "code": "MS"},
-  {"name": "Morocco", "code": "MA"}, 
-  {"name": "Mozambique", "code": "MZ"}, 
-  {"name": "Myanmar", "code": "MM"}, 
-  {"name": "Namibia", "code": "NA"}, 
-  {"name": "Nauru", "code": "NR"}, 
-  {"name": "Nepal", "code": "NP"}, 
-  {"name": "Netherlands", "code": "NL"}, 
-  {"name": "Netherlands Antilles", "code": "AN"}, 
-  {"name": "New Caledonia", "code": "NC"}, 
-  {"name": "New Zealand", "code": "NZ"}, 
-  {"name": "Nicaragua", "code": "NI"}, 
-  {"name": "Niger", "code": "NE"}, 
-  {"name": "Nigeria", "code": "NG"}, 
-  {"name": "Niue", "code": "NU"}, 
-  {"name": "Norfolk Island", "code": "NF"}, 
-  {"name": "Northern Mariana Islands", "code": "MP"}, 
-  {"name": "Norway", "code": "NO"}, 
-  {"name": "Oman", "code": "OM"}, 
-  {"name": "Pakistan", "code": "PK"}, 
-  {"name": "Palau", "code": "PW"}, 
-  {"name": "Palestinian Territory, Occupied", "code": "PS"}, 
-  {"name": "Panama", "code": "PA"}, 
-  {"name": "Papua New Guinea", "code": "PG"}, 
-  {"name": "Paraguay", "code": "PY"}, 
-  {"name": "Peru", "code": "PE"}, 
-  {"name": "Philippines", "code": "PH"}, 
-  {"name": "Pitcairn", "code": "PN"}, 
-  {"name": "Poland", "code": "PL"}, 
-  {"name": "Portugal", "code": "PT"}, 
-  {"name": "Puerto Rico", "code": "PR"}, 
-  {"name": "Qatar", "code": "QA"}, 
-  {"name": "Reunion", "code": "RE"}, 
-  {"name": "Romania", "code": "RO"}, 
-  {"name": "Russian Federation", "code": "RU"}, 
-  {"name": "RWANDA", "code": "RW"}, 
-  {"name": "Saint Helena", "code": "SH"}, 
-  {"name": "Saint Kitts and Nevis", "code": "KN"}, 
-  {"name": "Saint Lucia", "code": "LC"}, 
-  {"name": "Saint Pierre and Miquelon", "code": "PM"}, 
-  {"name": "Saint Vincent and the Grenadines", "code": "VC"}, 
-  {"name": "Samoa", "code": "WS"}, 
-  {"name": "San Marino", "code": "SM"}, 
-  {"name": "Sao Tome and Principe", "code": "ST"}, 
-  {"name": "Saudi Arabia", "code": "SA"}, 
-  {"name": "Senegal", "code": "SN"}, 
-  {"name": "Serbia", "code": "RS"}, 
-  {"name": "Seychelles", "code": "SC"}, 
-  {"name": "Sierra Leone", "code": "SL"}, 
-  {"name": "Singapore", "code": "SG"}, 
-  {"name": "Slovakia", "code": "SK"}, 
-  {"name": "Slovenia", "code": "SI"}, 
-  {"name": "Solomon Islands", "code": "SB"}, 
-  {"name": "Somalia", "code": "SO"}, 
-  {"name": "South Africa", "code": "ZA"}, 
-  {"name": "South Georgia and the South Sandwich Islands", "code": "GS"}, 
-  {"name": "Spain", "code": "ES"}, 
-  {"name": "Sri Lanka", "code": "LK"}, 
-  {"name": "Sudan", "code": "SD"}, 
-  {"name": "Suriname", "code": "SR"}, 
-  {"name": "Svalbard and Jan Mayen", "code": "SJ"}, 
-  {"name": "Swaziland", "code": "SZ"}, 
-  {"name": "Sweden", "code": "SE"}, 
-  {"name": "Switzerland", "code": "CH"}, 
-  {"name": "Syrian Arab Republic", "code": "SY"}, 
-  {"name": "Taiwan, Province of China", "code": "TW"}, 
-  {"name": "Tajikistan", "code": "TJ"}, 
-  {"name": "Tanzania, United Republic of", "code": "TZ"}, 
-  {"name": "Thailand", "code": "TH"}, 
-  {"name": "Timor-Leste", "code": "TL"}, 
-  {"name": "Togo", "code": "TG"}, 
-  {"name": "Tokelau", "code": "TK"}, 
-  {"name": "Tonga", "code": "TO"}, 
-  {"name": "Trinidad and Tobago", "code": "TT"}, 
-  {"name": "Tunisia", "code": "TN"}, 
-  {"name": "Turkey", "code": "TR"}, 
-  {"name": "Turkmenistan", "code": "TM"}, 
-  {"name": "Turks and Caicos Islands", "code": "TC"}, 
-  {"name": "Tuvalu", "code": "TV"}, 
-  {"name": "Uganda", "code": "UG"}, 
-  {"name": "Ukraine", "code": "UA"}, 
-  {"name": "United Arab Emirates", "code": "AE"}, 
-  {"name": "United Kingdom", "code": "GB"}, 
-  {"name": "United States", "code": "US"}, 
-  {"name": "United States Minor Outlying Islands", "code": "UM"}, 
-  {"name": "Uruguay", "code": "UY"}, 
-  {"name": "Uzbekistan", "code": "UZ"}, 
-  {"name": "Vanuatu", "code": "VU"}, 
-  {"name": "Venezuela", "code": "VE"}, 
-  {"name": "Viet Nam", "code": "VN"}, 
-  {"name": "Virgin Islands, British", "code": "VG"}, 
-  {"name": "Virgin Islands, U.S.", "code": "VI"}, 
-  {"name": "Wallis and Futuna", "code": "WF"}, 
-  {"name": "Western Sahara", "code": "EH"}, 
-  {"name": "Yemen", "code": "YE"}, 
-  {"name": "Zambia", "code": "ZM"}, 
-  {"name": "Zimbabwe", "code": "ZW"} 
-  ]
+
 
 var goalCountry = mapdata[0];
 
+function getFlagForCountry(country) {
+  return 
+}
+
 function submitGuess() {
   var guessAlpha = document.getElementById('myInput').getAttribute('country-code');
+  console.log("GuessAlpha: ", guessAlpha);
   if(guessAlpha == goalCountry.alpha2) {
     console.log("Correct");
     document.getElementById('previous-guesses').innerHTML = "";
     getRandomCountry();
   } else {
-    guessCountry = mapdata.find(elem => elem.alpha2 == guessAlpha);
+    guessCountry = mapdata.find(elem => elem.alpha2 == guessAlpha.toUpperCase());
+    console.log("Guessed country: ", guessCountry);
     var distToCountry = calculateDist(guessCountry, goalCountry);
     var headingToCountry = angleFromCoordinate(guessCountry, goalCountry);
 
     let wrongGuess = document.createElement('div');
     wrongGuess.innerHTML = `
     <div class="row">
+      <div class="col-md-2">
+      <img id="question-img" src="countries_flags/${guessCountry.alpha2.toLowerCase()}.svg" width="30px" height="20px"/>
+      </div>
+      <div class="col-md-6">
+      ${guessCountry.country}
+      </div>
+      <div class="col-md-3">
+      ${distToCountry} km
+      </div>
       <div class="col-md-1">
                   <span style="writing-mode: vertical-lr; -webkit-transform:rotate(${headingToCountry}deg);">&larr;</span>
-      </div>
-      <div class="col-md-7">
-          ${guessCountry.country}
-      </div>
-      <div class="col-md-4">
-            ${distToCountry} km
       </div>
     </row>
     `;
