@@ -1835,17 +1835,36 @@ const mapdata = [
 
 var goalCountry = mapdata[0];
 
-function getFlagForCountry(country) {
-  return 
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
+function handleCorrectGuess() {
+  console.log("Correct");
+    document.getElementById('question-img').src = "correct.gif";
+    let correctGuess = document.createElement("div")
+    correctGuess.innerHTML = 
+    `
+    <div id="correct" class="row" style="text-align: center">
+      <h2>Correct!</h2>
+    </div>
+    `;
+
+    var referenceNode = document.getElementById('question-img').parentNode;
+    referenceNode.parentNode.insertBefore(correctGuess, referenceNode.nextSibling);
+
+    delay(500).then(() => {
+      document.getElementById('correct').remove();
+      document.getElementById('previous-guesses').innerHTML = "";
+      getRandomCountry();
+    });
 }
 
 function submitGuess() {
   var guessAlpha = document.getElementById('myInput').getAttribute('country-code');
   console.log("GuessAlpha: ", guessAlpha);
   if(guessAlpha == goalCountry.alpha2) {
-    console.log("Correct");
-    document.getElementById('previous-guesses').innerHTML = "";
-    getRandomCountry();
+    handleCorrectGuess();
   } else {
     guessCountry = mapdata.find(elem => elem.alpha2 == guessAlpha.toUpperCase());
     console.log("Guessed country: ", guessCountry);
