@@ -1326,14 +1326,6 @@ const mapdata = [
         "longitude" : 134.5
       },
   {
-        "country" : "Palestinian Territory, Occupied",
-        "alpha2" : "PS",
-        "alpha3" : "PSE",
-        "numeric" : 275,
-        "latitude" : 32,
-        "longitude" : 35.25
-      },
-  {
         "country" : "Panama",
         "alpha2" : "PA",
         "alpha3" : "PAN",
