@@ -16,14 +16,13 @@ function autocomplete(inp, arr, type) {
         /*append the DIV element as a child of the autocomplete container:*/
         this.parentNode.appendChild(a);
         /*for each item in the array...*/
-        console.log("Autocomplete array: ", arr);
         for (i = 0; i < arr.length; i++) {
           var obj = "";
           switch (type) {
             case "instruction":
               obj = arr[i].opcode;
               break;
-            case "operand":
+            case "register":
               obj = arr[i];
               break;
             default:
@@ -46,6 +45,9 @@ function autocomplete(inp, arr, type) {
                 /*close the list of autocompleted values,
                 (or any other open lists of autocompleted values:*/
                 closeAllLists();
+                if(type == "instruction") {
+                  fillOperands(inp);
+                }
             });
             a.appendChild(b);
           }
