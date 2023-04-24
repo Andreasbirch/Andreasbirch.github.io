@@ -1,25 +1,11 @@
 $(function(){
-    autocomplete(document.getElementById('input'), defaultIset, 'instruction');
-    
-    
-    updateRegisterAutocomplete();
+    autocomplete(document.getElementById('input'), defaultIset, 'newInstruction');
 
 });
-
-function updateRegisterAutocomplete() {
-    Array.from(document.getElementsByClassName('register')).forEach(function(element) {
-        autocomplete(element, regs, 'register')
-        element.addEventListener('input', function(e) {
-            console.log("E: ", e);
-            console.log("src:", e.target);
-        });
-    });
-}
 
 //TODO:
 //Få added tab-press til at navigere mellem inputfelter på linje
 
-//Få lavet et objekt der bygges til.
 const operandType = {
     register: "register",
     immediate: "immediate"
@@ -30,12 +16,6 @@ class Instruction {
         this.opcode = opcode;
         this.operands = operands;
     }
-    get opcode() {
-        return this.opcode;
-    }
-    get operands() {
-        return this.operands;
-    }
 };
 
 class Operand {
@@ -43,23 +23,9 @@ class Operand {
         this.type = type;
         this.value = value;
     }
-
-    get type(){
-        return this.type;
-    }
-
-    get value() {
-        return this.value;
-    }
-
-    set value(val) {
-        this.value = val;
-    }
 };
 
 const program = [];
-
-const iset = [];
 
 const regs = [
     "R1",
@@ -105,42 +71,84 @@ const defaultIset = [
     }
 ];
 
-function fillOperands(elem) {
-    let opcode = elem.value;
-    let instruction = defaultIset.find(o => o.opcode == opcode);
-    let parent = elem.parentElement.parentElement;
-    console.log(parent.childNodes);
-    let operandList = parent.childNodes[3].childNodes[1];
-    console.log("Operands: ", operandList);
-    //Create child nodes
-    let newSpan = document.createElement('span');
-    newSpan.classList.add('autocomplete');
-    
-    let operandListElement = document.createElement('span');
-    operandListElement.classList.add('operand-list');
+function submitAutocomplete(elem, type) {
+    let value = elem.value;
+    console.log("Submitted autocomplete:", {elem, type});
 
-    instruction.operands.forEach((operand, idx) => {
-        let newElem = document.createElement('input');
-        newElem.classList.add(operand.type);
-        newElem.setAttribute('id', idx);
-        operandListElement.appendChild(newElem);
-    });
-    newSpan.appendChild(operandListElement);
+    //Diferentiate between an existing instruction being modified and a
+    //new instruction which needs to have new operands created etc.
 
-    parent.appendChild(newSpan);
+    switch(type) {
+        case "newInstruction":
+            //Create number of operands for instruction
+            let ins = defaultIset.find(o => o.opcode == value);
+            let ops = ins.operands.map(function(op) {
+                return new Operand(op.type, op.value);
+            });
+            
+            //Generate new Instruction object
+            let instruction = new Instruction(value, ops);
+            program.push(instruction);
+            
 
-    //Operand list skal cleares somehow så den ikke bare bliver ved med at appende
-    updateRegisterAutocomplete();
-    addNewInstruction();
+            //Generate inputs for each operand to be used in view.
+            instruction.operands.forEach(operand => {
+                drawOperand(elem.parentElement, operand);
+            });
+
+            //Generate new input field for next line, add autocomplete to it
+            let newInput = document.createElement('input');
+            autocomplete(newInput, defaultIset, 'newInstruction');
+
+            //Create new div containing the next line
+            let newInstruction = document.createElement('div');
+            newInstruction.classList.add('instruction');
+            newInstruction.classList.add('autocomplete');
+            newInstruction.appendChild(newInput);
+            
+            document.body.appendChild(newInstruction);
+    }
 }
 
-function addNewInstruction() {
-    let newElem = document.createElement('div');
-    newElem.classList.add('instruction');
-    newElem.innerHTML = `<span class="autocomplete" style="margin-top: 20px;">
-    <input id="input" type="text" name="myCountry" placeholder="opcode" country-code="">
-</span>`
-    //Få autocomplete til at virke på nyligt tilføjet element
-    autocomplete(newElem, defaultIset, 'instruction');
-    document.body.appendChild(newElem);
+function drawInstruction(parent, instruction) {
+    
+}
+
+function drawOpcodeField() {
+
+}
+
+function allowNumbers(elem) {
+    elem.addEventListener('input', function(e) {
+        if(!isNaN(e.data)) {
+            elem.value += e.data;
+        }
+    });
+}
+
+function drawOperand(parent, operand) {
+    //Create element
+    let elem = document.createElement('input');
+    elem.classList.add("operand");
+
+    //If operand is of type register, add autocomplete functionality.
+    if(operand.type == operandType.register) {
+        autocomplete(elem, regs, 'register');
+    } else {
+        //Allow only numbers to be input
+        elem.type = 'number';
+        //Disallow incrementing when pressing up/down buttons
+        elem.addEventListener('keydown', function(event) {
+            if ([38, 40].indexOf(event.keyCode) > -1) {
+                event.preventDefault();
+            }
+        });
+    }
+
+    //If operand is changed in the future, add this to the instruction
+    elem.addEventListener('input', function(e) {
+        operand.value = elem.value;
+    });
+
+    parent.appendChild(elem);
 }

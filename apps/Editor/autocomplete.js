@@ -19,7 +19,7 @@ function autocomplete(inp, arr, type) {
         for (i = 0; i < arr.length; i++) {
           var obj = "";
           switch (type) {
-            case "instruction":
+            case "instruction", "newInstruction":
               obj = arr[i].opcode;
               break;
             case "register":
@@ -40,14 +40,12 @@ function autocomplete(inp, arr, type) {
             b.innerHTML += "<input type='hidden' value='" + obj + "'>";
             /*execute a function when someone clicks on the item value (DIV element):*/
                 b.addEventListener("click", function(e) {
-                /*insert the value for the autocomplete text field:*/
-                inp.value = this.getElementsByTagName("input")[0].value;
-                /*close the list of autocompleted values,
-                (or any other open lists of autocompleted values:*/
-                closeAllLists();
-                if(type == "instruction") {
-                  fillOperands(inp);
-                }
+                  /*insert the value for the autocomplete text field:*/
+                  inp.value = this.getElementsByTagName("input")[0].value;
+                  /*close the list of autocompleted values,
+                  (or any other open lists of autocompleted values:*/
+                  closeAllLists();
+                  submitAutocomplete(inp, type);
             });
             a.appendChild(b);
           }

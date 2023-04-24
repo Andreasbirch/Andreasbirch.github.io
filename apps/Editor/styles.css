@@ -7,15 +7,21 @@ body {
   position: relative;
   display: inline-block;
 }
+
+.instruction {
+  margin-top: 5px;
+  display: block;
+}
+
 input {
   border: 1px solid transparent;
   background-color: #f1f1f1;
+  margin-right: 5px;
   padding: 10px;
   font-size: 16px;
 }
 input[type=text] {
   background-color: #f1f1f1;
-  width: 100%;
 }
 input[type=submit] {
   background-color: DodgerBlue;
@@ -46,4 +52,16 @@ input[type=submit] {
   /*when navigating through the items using the arrow keys:*/
   background-color: DodgerBlue !important;
   color: #ffffff;
+}
+
+/* Hide spinner from number input box */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
 }

@@ -7,19 +7,14 @@
     <link rel="stylesheet" href="styles.css">
     <script src="../jquery-3.6.0.js"></script>
     <script src="autocomplete.js"></script>
+    <script src="inputfilter.js"></script>
     <script type="text/javascript" src="scripts.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <title>Editor</title>
 </head>
 <body>
-    <span class="instruction">
-        <span class="autocomplete" style="margin-top: 20px;">
-            <input id="input" type="text" name="myCountry" placeholder="opcode" country-code="">
-        </span>
-        <span class="autocomplete">
-            <span class="operand-list">
-            </span>
-        </span>
+    <div class="instruction autocomplete">
+        <input id="input" type="text" name="myCountry" placeholder="opcode" country-code="">
     </span>
 </body>
 </html>
