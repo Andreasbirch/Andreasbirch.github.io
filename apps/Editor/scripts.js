@@ -114,7 +114,8 @@ function fillOperands(elem) {
     console.log("Operands: ", operandList);
     //Create child nodes
     let newSpan = document.createElement('span');
-    newElem.classList.classList.add('autocomplete');
+    newSpan.classList.add('autocomplete');
+    
     let operandListElement = document.createElement('span');
     operandListElement.classList.add('operand-list');
 
@@ -125,12 +126,21 @@ function fillOperands(elem) {
         operandListElement.appendChild(newElem);
     });
     newSpan.appendChild(operandListElement);
-    
+
+    parent.appendChild(newSpan);
+
+    //Operand list skal cleares somehow så den ikke bare bliver ved med at appende
     updateRegisterAutocomplete();
     addNewInstruction();
 }
 
 function addNewInstruction() {
-    let newElem = document.createElement('')
-    document.appendChild
+    let newElem = document.createElement('div');
+    newElem.classList.add('instruction');
+    newElem.innerHTML = `<span class="autocomplete" style="margin-top: 20px;">
+    <input id="input" type="text" name="myCountry" placeholder="opcode" country-code="">
+</span>`
+    //Få autocomplete til at virke på nyligt tilføjet element
+    autocomplete(newElem, defaultIset, 'instruction');
+    document.body.appendChild(newElem);
 }
