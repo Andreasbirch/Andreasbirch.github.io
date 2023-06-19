@@ -18,9 +18,7 @@ async function submit() {
     } else if(chatInput.includes(test3Text)) {
         sendMessage("Not a problem, hang on!");
         await botRespond("Here is a new picture");
-        var replacedhtml = $('#result').html().replaceAll("https://pixabay.com/get/g3963cd0fc4422d3012dc6806821fbeb60c5bb511c8316f227e234bab899228234ca77fcbc97261476c8ee0ca69851910_640.jpg", 
-                                                            "https://cdn.pixabay.com/photo/2017/10/15/09/46/farmhouse-2853047_1280.jpg");
-        $('#result').html(replacedhtml); //Replace title
+        $('#about-img').attr('src', 'https://cdn.pixabay.com/photo/2017/10/15/09/46/farmhouse-2853047_1280.jpg');
     } else {
         await botRespond("Here you go"); //Wait for fake bot to "generate" website
         
