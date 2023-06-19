@@ -1,0 +1,65 @@
+.container {
+    margin-top: 50px;
+}
+
+#product-name {
+    display: inline-flex;
+}
+
+#ai {
+    font-family: 'Courier New', Courier, monospace;
+    color: #20C20E;
+}
+
+#chatlogs {
+    height: 200px; 
+    overflow-y: auto;
+}
+
+.msg {
+    border-radius: 5px;
+    padding: 12px;
+    display: inline-block;
+}
+
+.msg-human {
+    background-color: #198754;
+    color: #fff;
+    float: right;
+}
+
+.msg-bot {
+    background-color: #E4E6EB;
+    color: 0;
+    float: left
+}
+
+
+/*dots by cely717*/
+.loading-dots {
+text-align: center;
+z-index: 5;
+    .dot {
+        display: inline;
+        margin-left: 0.2em;
+        margin-right: 0.2em;
+        position: relative;
+        top: 0em;
+        font-size: 3.5em;
+        opacity: 0;
+        animation: showHideDot 1.75s ease-in-out infinite;
+
+        &.one { animation-delay: 0.1s; }
+        &.two { animation-delay: 0.2s; }
+        &.three { animation-delay: 0.3s; }
+    }
+}
+
+@keyframes showHideDot {
+0% { opacity: 0; }
+50% { opacity: 1; }
+60% { opacity: 1; }
+100% { opacity: 0; }
+}
+  
+  
