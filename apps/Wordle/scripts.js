@@ -2,7 +2,6 @@ const wordsLongerThanFive = words_data.filter(word => word.length == 5);
 const word = wordsLongerThanFive[Math.floor(Math.random() * wordsLongerThanFive.length)];
 let guessNo = 0;
 
-
 function checkWord(guess) {
     guessNo++;
 
@@ -24,5 +23,9 @@ function checkWord(guess) {
     }
     console.log(result);
 }
+
+$(document).keyup(function(data, e) {
+    console.log(data);
+});
 
 // console.log(word);
