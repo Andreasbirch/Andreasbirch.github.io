@@ -25,7 +25,7 @@ function checkWord(guess) {
         console.log("You win!");
         return;
     }
-    
+
     guessNo++;
     console.log(result);
 }
@@ -77,8 +77,9 @@ $(document).keyup(function(e) {
             submitAnswer();
             break;
         default:
-            if((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) //English letter
-            appendLetter(letter);
+            if((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {//English letter
+                appendLetter(letter);
+            }
             break;
     }
 });
