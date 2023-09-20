@@ -41,7 +41,7 @@ function appendLetter(letter) {
     }
 }
 
-function deleteLetter(letter) {
+function deleteLetter() {
     let row = $($('.word-row')[guessNo]); //Get row corresponding to guess
     let childrenWithLetter = row.children().filter(function() {
         return $(this).val();
