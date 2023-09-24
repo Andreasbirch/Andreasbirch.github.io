@@ -9,15 +9,20 @@ function checkWord(guess) {
     for (let i = 0; i < guess.length; i++) {
         let element = guess.charAt(i);
         let letter = $(row.children()[i]);
+        let keyboard_key = $(`[key=${element.toUpperCase()}]`);
+
         if(word[i] == element) {
             result[i] = '🟩';
             letter.addClass('green');
+            keyboard_key.addClass('green');
         } else if(word.includes(element)) {
             result[i] = '🟨';
             letter.addClass('yellow');
+            keyboard_key.addClass('yellow');
         } else {
             result[i] = '⬛️';
             letter.addClass('black');
+            keyboard_key.addClass('black');
         }
     }
 
@@ -82,4 +87,9 @@ $(document).keyup(function(e) {
             }
             break;
     }
+});
+
+
+$(function() {
+    $('.letter').prop('disabled', true);
 });
