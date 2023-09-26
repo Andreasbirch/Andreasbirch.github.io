@@ -9,25 +9,38 @@ function checkWord(guess) {
     for (let i = 0; i < guess.length; i++) {
         let element = guess.charAt(i);
         let letter = $(row.children()[i]);
+        let keyboard_key = $(`[key=${element.toUpperCase()}]`);
+
         if(word[i] == element) {
             result[i] = '🟩';
             letter.addClass('green');
+            keyboard_key.addClass('green');
         } else if(word.includes(element)) {
             result[i] = '🟨';
             letter.addClass('yellow');
+            keyboard_key.addClass('yellow');
         } else {
             result[i] = '⬛️';
             letter.addClass('black');
+            keyboard_key.addClass('black');
         }
     }
 
     if(guess == word) {
         console.log("You win!");
+        
+        triggerModal('win');
         return;
     }
 
+    
     guessNo++;
     console.log(result);
+    
+    if(guessNo == 6) {
+        triggerModal('lose');
+        return;
+    }
 }
 
 function appendLetter(letter) {
@@ -82,4 +95,34 @@ $(document).keyup(function(e) {
             }
             break;
     }
+});
+
+function triggerModal(result) {
+    let bodyGraphic = "";
+    let bodyText = "";
+    let modalTitle = "";
+
+    if(result == 'win') {
+        modalTitle = "You win!";
+        bodyGraphic = '🎉';
+        bodyText = "You win!";
+    } else {
+        modalTitle = "You lose";
+        bodyGraphic = '😕';
+        bodyText = `You lose.\nCorrect word was <strong>${word}</strong>`;
+    }
+
+    $('#modal-title').text(modalTitle);
+    $('.body-graphic').html(bodyGraphic);
+    $('.body-text').html(bodyText);
+    $('#end-modal').modal('show');
+}
+
+$(function() {
+    $('.letter').prop('disabled', true);
+
+
+    $('[data-dismiss=modal]').click(function() {
+        $('#end-modal').modal('hide');
+    });
 });

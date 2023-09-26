@@ -57,5 +57,70 @@
             <input class="letter" maxlength="1">
         </div>
     </div>
+
+    <div class="keyboard-container">
+        <div class="keyboard-row">
+            <div class="keyboard-key" key="Q">Q</div>
+            <div class="keyboard-key" key="W">W</div>
+            <div class="keyboard-key" key="E">E</div>
+            <div class="keyboard-key" key="R">R</div>
+            <div class="keyboard-key" key="T">T</div>
+            <div class="keyboard-key" key="Y">Y</div>
+            <div class="keyboard-key" key="U">U</div>
+            <div class="keyboard-key" key="I">I</div>
+            <div class="keyboard-key" key="O">O</div>
+            <div class="keyboard-key" key="P">P</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="keyboard-key" key="A">A</div>
+            <div class="keyboard-key" key="S">S</div>
+            <div class="keyboard-key" key="D">D</div>
+            <div class="keyboard-key" key="F">F</div>
+            <div class="keyboard-key" key="G">G</div>
+            <div class="keyboard-key" key="H">H</div>
+            <div class="keyboard-key" key="J">J</div>
+            <div class="keyboard-key" key="K">K</div>
+            <div class="keyboard-key" key="L">L</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="keyboard-key" key="ENTER">ENTER</div>
+            <div class="keyboard-key" key="Z">Z</div>
+            <div class="keyboard-key" key="X">X</div>
+            <div class="keyboard-key" key="C">C</div>
+            <div class="keyboard-key" key="V">V</div>
+            <div class="keyboard-key" key="B">B</div>
+            <div class="keyboard-key" key="N">N</div>
+            <div class="keyboard-key" key="M">M</div>
+            <div class="keyboard-key" key="DELETE"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace" viewBox="0 0 16 16">
+                <path d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z"/>
+                <path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z"/>
+              </svg></div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="end-modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modal-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="body-graphic">
+                    
+                </div>
+                <div class="body-text">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
 </body>
 </html>
