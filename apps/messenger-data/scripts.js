@@ -13,7 +13,6 @@ $(function() {
             `
         );
     });
-
     most_common_poster();
     first_message();
     longest_message();
@@ -32,12 +31,20 @@ function longest_message() {
     $('#data-shortest-message').text(`${sorted[0].content.length} tegn ${sorted[0].content.split(' ').length > 1 ? `, ${sorted[0].content.split(' ').length} ord` : ""}`);
 }
 
+let common_chart;
 function most_common_poster() {
+    let ctx = document.getElementById('most-frequent-poster-chart');
     let inp = $('#most-common-poster-input');
+    
     inp.on('input', function() {
         let searchWord = inp.val();
         let participants_dict = {};
+        
+        if(searchWord.length == 0) {
+            return;
+        }
 
+        let participants_dict = {};
         //Convert participants to a dictionary
         for(const item of data.participants.map(function(e) {
             return e.name;
@@ -49,10 +56,39 @@ function most_common_poster() {
             let word_count = (message.content.match(new RegExp(searchWord, "gi")) || []).length; //Count occurences of word
             participants_dict[message.sender_name] += word_count;
         });
-
+    
         //Convert dict to list and sort it by word count;
         const sorted_entries = Object.entries(participants_dict);
         sorted_entries.sort((x, y) => y[1] - x[1]);
-        console.log(sorted_entries);
+    
+        if (common_chart) common_chart.destroy();
+        common_chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                // labels: ['A', 'B', 'C', 'D'],
+                labels: sorted_entries.map(function(entry) {
+                    return entry[0];
+                }),
+                datasets: [
+                    {
+                        axis: 'y',
+                        label: '# of messages',
+                        // data: [1, 2, 3, 4],
+                        data: sorted_entries.map(function(entry) {
+                            return entry[1];
+                        }),
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     });
 }
