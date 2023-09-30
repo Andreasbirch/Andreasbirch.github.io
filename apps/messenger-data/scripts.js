@@ -38,7 +38,6 @@ function most_common_poster() {
     
     inp.on('input', function() {
         let searchWord = inp.val();
-        let participants_dict = {};
         
         if(searchWord.length == 0) {
             return;
