@@ -16,6 +16,8 @@ $(function() {
     most_common_poster();
     first_message();
     longest_message();
+
+    drawMessagesForUsers(document.getElementById('messages-for-users'));
 });
 
 function first_message() {

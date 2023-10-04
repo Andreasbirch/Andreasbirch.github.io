@@ -52,6 +52,9 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <canvas id="messages-for-users"></canvas>
+                            </div>
+                            <div class="row">
                                 <div class="col-3">
                                     <h3>Længste besked:</h3>
                                 </div>
@@ -60,12 +63,18 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div id="longest-message-bubble"></div>
+                            </div>
+                            <div class="row">
                                 <div class="col-3">
                                     <h3>Korteste besked:</h3>
                                 </div>
                                 <div class="col-9">
                                     <h3 class="fw-normal" id="data-shortest-message"></h3>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div id="shortest-message-bubble"></div>
                             </div>
                         </div>
 
@@ -98,5 +107,7 @@
           </div>
     </div>
     <script src="scripts.js"></script>
+    <script src="messages_count.js"></script>
+    <script src="shortest_longest_message.js"></script>
 </body>
 </html>
