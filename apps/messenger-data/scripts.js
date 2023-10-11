@@ -1,3 +1,8 @@
+// window.addEventListener("beforeunload", function (e) {
+//     (e || window.event).returnValue = "Er du sikker på du vil forlade siden?"; //Gecko + IE
+//     return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+// });
+
 $(function() {
     $('#content-title').text(data.title);
 

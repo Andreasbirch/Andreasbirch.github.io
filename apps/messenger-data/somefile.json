@@ -1,0 +1,14 @@
+{
+    "participants": [
+        {
+            "name": "Alice"
+        }
+    ],
+    "messages": [
+        {
+            "sender_name": "Alice",
+            "timestamp": 123123123,
+            "content": "Message 1"
+        }
+    ]
+}

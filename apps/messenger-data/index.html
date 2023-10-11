@@ -23,6 +23,9 @@
     <div class="container">
         <ul class="nav nav-tabs" id="content-tabs" role="tablist">
             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="file-upload" data-bs-toggle="tab" data-bs-target="#file-upload-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Filupload</button>
+            </li>
+            <li class="nav-item" role="presentation">
                 <button class="nav-link" id="Medlemmer" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Medlemmer</button>
             </li>
             <li class="nav-item" role="presentation">
@@ -31,80 +34,122 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="most-frequent-tab" data-bs-toggle="tab" data-bs-target="#most-frequent-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Hvem siger mest...?</button>
             </li>
-          </ul>
-          <div class="tab-content" id="content-tabs-content">
-                <div class="tab-pane" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                    <div class="container" id="participants-content">
-                    </div>
-                </div>
-                <div class="tab-pane show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                    <div class="container" id="stats-content">
-                        <div> <!--General stats-->
-                            <div class="row">
-                                <small class="text-muted">Generelt:</small>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <h3>Antal beskeder:</h3>
-                                </div>
-                                <div class="col-9">
-                                    <h3 class="fw-normal" id="data-number-of-messages"></h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <canvas id="messages-for-users"></canvas>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <h3>Længste besked:</h3>
-                                </div>
-                                <div class="col-9">
-                                    <h3 class="fw-normal" id="data-longest-message"></h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div id="longest-message-bubble"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <h3>Korteste besked:</h3>
-                                </div>
-                                <div class="col-9">
-                                    <h3 class="fw-normal" id="data-shortest-message"></h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div id="shortest-message-bubble"></div>
-                            </div>
-                        </div>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="activity-tab" data-bs-toggle="tab" data-bs-target="#activity-tab-pane" type="button" role="tab" aria-controls="activity-tab-pane" aria-selected="false">Aktivitet</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="content-tabs-content">
+            <div class="tab-pane" id="file-upload-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                <form id="submit-chat-form">
+                    <label for="upload">Upload chats</label>
+                    <input type="file" id="upload" accept=".json" multiple>
+                    <input type="submit" value="Upload">
+                </form>
+                <script src="./scripts_folder/file-upload.js" defer></script>
+            </div>
 
 
-                        <div> <!--Message highlights-->
-                            <div class="row">
-                                <small class="text-muted">Besked highlights:</small>
-                                <div class="col-3">
-                                    <h3>Første besked:</h3>
-                                </div>
-                                <div class="col-9">
-                                    <h3 class="fw-normal" id="data-first-message"></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
+
+            <div class="tab-pane" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                <div class="container" id="participants-content">
                 </div>
-                <div class="tab-pane" id="most-frequent-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                    <div class="container">
+            </div>
+
+
+
+
+
+            <div class="tab-pane show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                <div class="container" id="stats-content">
+                    <div> <!--General stats-->
                         <div class="row">
-                            <div style="display: flex;">
-                                <p>Hvem siger oftest<input type="text" id="most-common-poster-input">?</p>
+                            <small class="text-muted">Generelt:</small>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3>Antal beskeder:</h3>
+                            </div>
+                            <div class="col-9">
+                                <h3 class="fw-normal" id="data-number-of-messages"></h3>
                             </div>
                         </div>
                         <div class="row">
-                            <canvas id="most-frequent-poster-chart"></canvas>
+                            <canvas id="messages-for-users"></canvas>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3>Længste besked:</h3>
+                            </div>
+                            <div class="col-9">
+                                <h3 class="fw-normal" id="data-longest-message"></h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="longest-message-bubble"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3>Korteste besked:</h3>
+                            </div>
+                            <div class="col-9">
+                                <h3 class="fw-normal" id="data-shortest-message"></h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="shortest-message-bubble"></div>
+                        </div>
+                    </div>
+
+
+                    <div> <!--Message highlights-->
+                        <div class="row">
+                            <small class="text-muted">Besked highlights:</small>
+                            <div class="col-3">
+                                <h3>Første besked:</h3>
+                            </div>
+                            <div class="col-9">
+                                <h3 class="fw-normal" id="data-first-message"></h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-          </div>
+            </div>
+
+
+
+
+
+            <div class="tab-pane" id="most-frequent-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                <div class="container">
+                    <div class="row">
+                        <div style="display: flex;">
+                            <p>Hvem siger oftest<input type="text" id="most-common-poster-input">?</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <canvas id="most-frequent-poster-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="tab-pane" id="activity-tab-pane" role="tabpanel" aria-labelledby="activity-tab" tabindex="0">
+                <div class="container">
+                    <h3>Aktivitet</h3>
+                    <div class="row">
+                        <canvas id="activity-daily"></canvas>
+                        <canvas id="messages-weekly"></canvas>
+                        <canvas id="messages-monthly"></canvas>
+                        <canvas id="messages-yearly"></canvas>
+                    </div>
+                </div>
+                <script src="scripts_folder/activity.js" defer></script>
+            </div>
+        </div>
     </div>
     <script src="scripts.js"></script>
     <script src="messages_count.js"></script>
