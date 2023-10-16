@@ -140,11 +140,14 @@
             <div class="tab-pane" id="activity-tab-pane" role="tabpanel" aria-labelledby="activity-tab" tabindex="0">
                 <div class="container">
                     <h3>Aktivitet</h3>
+                    <select id="activity-selector">
+                        <option value="daily">Daglig</option>
+                        <option value="weekly">Ugentlig</option>
+                        <option value="monthly">Månedlig</option>
+                        <option value="yearly">Årlig</option>
+                    </select>
                     <div class="row">
-                        <canvas id="activity-daily"></canvas>
-                        <canvas id="messages-weekly"></canvas>
-                        <canvas id="messages-monthly"></canvas>
-                        <canvas id="messages-yearly"></canvas>
+                        <canvas id="messages-activity"></canvas>
                     </div>
                 </div>
                 <script src="scripts_folder/activity.js" defer></script>
