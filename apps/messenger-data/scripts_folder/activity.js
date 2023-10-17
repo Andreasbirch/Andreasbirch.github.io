@@ -20,49 +20,32 @@ $('#activity-selector').change(function(e) {
     }
     console.log("Activity data", activityData);
 })
-
-const activityDaily = () => {
-    let hourBins = new Array(24)
-    for (let i = 0; i < hourBins.length; i++) {
-        hourBins[i] = {
-            time: i, 
-            count: data.messages.filter(e => new Date(e.timestamp).getHours() == i).length
+const counts = (format) => {
+    var cts = data.messages.reduce((p, c) => {
+        var time = timeFormat(c.timestamp, format);
+        if (!p.hasOwnProperty(time)) {
+            p[time] = 0;
         }
-    }
-    return hourBins;
+        p[time]++;
+        return p;
+    }, {});
+    console.log(cts);
 }
 
-const activityWeekly = () => {
-    let dayBins = new Array(7);
-    for (let i = 0; i < dayBins.length; i++) {
-        dayBins[i] = {
-            day: dayNumToName(i), //Todo: converter til dag, helst uden switch 
-            count: data.messages.filter(e => new Date(e.timestamp).getDay() == i).length
-        }
+const timeFormat = (timestamp, format) => {
+    let date = new Date(timestamp);
+    switch (format) {
+        case 'hour':
+            return dayNumToName(date.getHours());
+        case 'day':
+            return dayNumToName(date.getDay());
+        case 'date':
+            return dayNumToName(date.getDate());
+        case 'month':
+            return monthNumToName(date.getMonth());
+        default:
+            break;
     }
-    return dayBins;
-}
-
-const activityMonthly = () => {
-    let dayBins = new Array(31);
-    for (let i = 0; i < dayBins.length; i++) {
-        dayBins[i] = {
-            day: i + 1,
-            count: data.messages.filter(e => new Date(e.timestamp).getDate() == i).length
-        }
-    }
-    return dayBins;
-}
-
-const activityYearly = () => {
-    let monthBins = new Array(12);
-    for (let i = 0; i < monthBins.length; i++) {
-        monthBins[i] = {
-            month: monthNumToName(i),
-            count: data.messages.filter(e => new Date(e.timestamp).getMonth() == i).length
-        }
-    }
-    return monthBins;
 }
 
 const dayNumToName = (num) => {
