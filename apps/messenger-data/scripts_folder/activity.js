@@ -1,68 +1,86 @@
 $('#activity-selector').change(function(e) {
     let activityScope = $(e.target).val();
-    let activityData = [];
-    switch (activityScope) {
-        case 'daily':
-            activityData = activityDaily();
-            break;
-        case 'weekly':
-            activityData = activityWeekly();
-            break;
-        case 'monthly':
-            activityData = activityMonthly();
-            break;
-        case 'yearly':
-            activityData = activityYearly();
-            break;
-        default:
-            activityData = activityDaily();
-            break;
+    if(activityScope != 'none') {
+        let activities = activity(activityScope);
+        let a = Object.keys(activities).map(element => {
+            return {
+                x: element,
+                y: activities[element]
+            }
+        });
+        drawHorizontalGraph(document.getElementById('messages-activity-container'), a);
     }
-    console.log("Activity data", activityData);
-})
-const counts = (format) => {
-    var cts = data.messages.reduce((p, c) => {
-        var time = timeFormat(c.timestamp, format);
-        if (!p.hasOwnProperty(time)) {
-            p[time] = 0;
+});
+
+function activity(format) {
+    let bins = getBins(format);
+    data.messages.forEach((e) => {
+        let bin = getBinForTime(e.timestamp, format);
+        if(bins[bin]) {
+            bins[bin] += 1;
+        } else {
+            bins[bin] = 1;
         }
-        p[time]++;
-        return p;
-    }, {});
-    console.log(cts);
+    });
+    return bins;
 }
 
-const timeFormat = (timestamp, format) => {
+const getBinForTime = (timestamp, format) => {
     let date = new Date(timestamp);
     switch (format) {
-        case 'hour':
-            return dayNumToName(date.getHours());
-        case 'day':
+        case 'daily':
+            return date.getHours();
+        case 'weekly':
             return dayNumToName(date.getDay());
-        case 'date':
-            return dayNumToName(date.getDate());
-        case 'month':
+        case 'monthly':
+            return date.getDate();
+        case 'yearly':
             return monthNumToName(date.getMonth());
         default:
             break;
     }
 }
 
+const getBins = (format) => {
+    let bins = [];
+    switch (format) {
+        case 'daily':
+            bins = Array.from({length: 24}, (_, i) => i + 1);
+            break;
+        case 'weekly':
+            bins = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag']
+            break;
+        case 'monthly':
+            bins = Array.from({length: 31}, (_, i) => i + 1)
+            break;
+        case 'yearly':
+            bins = ['Januar', 'Februar', 'Marts', 'April', 'Maj', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'December']
+            break;
+        default:
+            break;
+    }
+    let out = {}
+    bins.forEach((e) => {
+        out[e] = 0;
+    });
+    return out;
+}
+
 const dayNumToName = (num) => {
     switch (num) {
-        case 0:
-            return "Mandag"
         case 1:
-            return "Tirsdag"
+            return "Mandag"
         case 2:
-            return "Onsdag"
+            return "Tirsdag"
         case 3:
-            return "Torsdag"
+            return "Onsdag"
         case 4:
-            return "Fredag"
+            return "Torsdag"
         case 5:
-            return "Lørdag"
+            return "Fredag"
         case 6:
+            return "Lørdag"
+        case 7:
             return "Søndag"
         default:
             break;

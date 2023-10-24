@@ -141,13 +141,15 @@
                 <div class="container">
                     <h3>Aktivitet</h3>
                     <select id="activity-selector">
+                        <option value="none">Vælg</option>
                         <option value="daily">Daglig</option>
                         <option value="weekly">Ugentlig</option>
                         <option value="monthly">Månedlig</option>
                         <option value="yearly">Årlig</option>
                     </select>
                     <div class="row">
-                        <canvas id="messages-activity"></canvas>
+                        <div id="messages-activity-container">
+                        </div>
                     </div>
                 </div>
                 <script src="scripts_folder/activity.js" defer></script>

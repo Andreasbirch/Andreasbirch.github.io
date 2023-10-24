@@ -98,3 +98,37 @@ function most_common_poster() {
         });
     });
 }
+
+function drawHorizontalGraph(ctx, data) {
+    ctx.innerHTML = "";
+    let canvas = document.createElement("canvas");
+    ctx.appendChild(canvas);
+    new Chart(canvas, {
+        type: 'bar',
+        data: {
+            // labels: ['A', 'B', 'C', 'D'],
+            labels: data.map(function(entry) {
+                return entry.x;
+            }),
+            datasets: [
+                {
+                    axis: 'y',
+                    label: '# of messages',
+                    // data: [1, 2, 3, 4],
+                    data: data.map(function(entry) {
+                        return entry.y;
+                    }),
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'x',
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
