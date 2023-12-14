@@ -26,7 +26,7 @@ const PopulateData = (player) => {
                             if(game.white.result == 'win') {
                                 wins.Kanne += 1;
                             } 
-                            DrawMatch({
+                            Games.push({
                                 url: game.url,
                                 time: game.end_time,
                                 kanneColor: 'white',
@@ -38,7 +38,7 @@ const PopulateData = (player) => {
                             if(game.white.result == 'win') {
                                 wins.Jacob += 1;
                             } ;
-                            DrawMatch({
+                            Games.push({
                                 url: game.url,
                                 time: game.end_time,
                                 kanneColor: 'black',
@@ -47,6 +47,18 @@ const PopulateData = (player) => {
                                 jacob: game.white
                             });
                         }
+                        let kanneWins = 0;
+                        let jacobWins = 0;
+                        $('#history').empty();
+                        Games.sort(o => o.time).forEach(e => {
+                            if(e.kanne.result == 'win') {
+                                kanneWins++;
+                            }
+                            if(e.jacob.result == 'win') {
+                                jacobWins++;
+                            }
+                            DrawMatch(e, kanneWins, jacobWins);
+                        });
                     }
                 });
             });
@@ -55,7 +67,7 @@ const PopulateData = (player) => {
 }
 PopulateData(players.Kanne);
 
-const DrawMatch = (game) => {
+const DrawMatch = (game, kanneWins, jacobWins) => {
     let elem = `
     <div class="row game">
         <div class="col col-4">
@@ -74,7 +86,7 @@ const DrawMatch = (game) => {
         <div class="col col-4">
             <div class="row">
                 <div class="col">
-                    <h2 style="text-align: right;">${wins.Kanne}</h2>
+                    <h2 style="text-align: right;">${kanneWins}</h2>
                 </div>
                 <div class="col">
                     <div class="row">
@@ -89,7 +101,7 @@ const DrawMatch = (game) => {
                     </div>
                 </div>
                 <div class="col">
-                    <h2>${wins.Jacob}</h2>
+                    <h2>${jacobWins}</h2>
                 </div>
             </div>
         </div>
