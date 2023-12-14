@@ -98,9 +98,29 @@
             if(board[x][y].isMine){
                 console.log("Game over.");
             } else {
+                expand(x, y);
             }
 
             drawEntireBoard();
+        }
+
+        function expand(i, j) {
+            let visited = new Set();
+            let frontier = [];
+            
+            for(var x = Math.max(0, i-1); x <= Math.min(i+1, board.length-1); x++) {
+                for(var y = Math.max(0, j-1); y <= Math.min(j+1, board[0].length-1); y++) {
+                    if(x !== i || y !== j) {
+                        if(!visited.has((x, y))) {
+                            frontier.push((x, y));
+                        }
+                    }
+                }
+            }
+        }
+
+        function expandBfs() {
+
         }
 
         function drawEntireBoard() {

@@ -1,0 +1,44 @@
+.square {
+    border-radius: 2px;
+    width: 20px;
+    height: 20px;
+}
+
+.square-white {
+    border: 1px solid black;
+}
+
+.square-black {
+    background-color: black;
+}
+
+.name-row {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.color-col {
+    display: flex;
+    justify-content: center;
+}
+
+.win {
+    color: #4BB543;
+}
+
+.checkmated, .resigned, .timeout, .abandoned {
+    color: #cc0000
+}
+
+.agreed, .insufficient, .stalemate, .repetition {
+    color: #EEd202
+}
+
+.rating {
+    color:darkgray;
+}
+
+.game {
+    margin-top: 30px !important;
+}

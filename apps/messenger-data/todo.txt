@@ -1,0 +1,7 @@
+* Hvem er blevet tagget mest?
+* Hvem har skrevet flest beskeder
+* Hvem har tagget flest?
+* Vis længste og korteste besked
+* Hvor mange billeder er der blevet sendt?
+* Hvor mange videoer?
+* Hvem har postet flest bandeord? (Måske)?
