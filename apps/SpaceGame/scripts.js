@@ -1,3 +1,7 @@
+//Constants
+const fps = 60;
+const msPerFrame = 1000/fps;
+
 function update(progress) {
     //Throttle
     if (inputs.pressedKeys.up) {
@@ -35,6 +39,18 @@ function burnRocket() {
     }
 }
 
+function calculate_acceleration() {
+    spaceship.acceleration = spaceship.engine.acceleration
+}
+
+function calculate_velocity() {
+
+}
+
+function calculate_height() {
+    
+}
+
 
 
 function draw() {
@@ -52,13 +68,16 @@ function niceRound(num) {
 
 
 function loop(timestamp) {
+    window.requestAnimationFrame(loop);
+
+    //Cap fps to 60
     var progress = timestamp - lastRender
-
-    update(progress)
-    draw()
-
-    lastRender = timestamp
-    window.requestAnimationFrame(loop)
+    if(progress < msPerFrame) return;
+    const excessTime = progress % msPerFrame;
+    lastRender = timestamp - excessTime;
+    
+    update(progress);
+    draw();
 }
 
 var lastRender = 0

@@ -3,6 +3,7 @@ const spaceship = {
     acceleration: 0,
     velocity: 0,
     height: 0,
+    mass: 100,
     engine: {
         consumption_max: 1,
         acceleration_max: 1,
