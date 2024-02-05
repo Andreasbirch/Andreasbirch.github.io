@@ -2,13 +2,12 @@ const spaceship = {
     throttle: 0,
     acceleration: 0,
     velocity: 0,
-    height: 0,
+    y: 0,
     mass: 100,
     engine: {
-        thrust: 2000,
+        thrust_max: 2000,
+        thrust: 0,
         consumption_max: 10,
-        acceleration_max: 100,
-        acceleration: 0,
         consumption: 0
     },
     fuel: {

@@ -22,45 +22,23 @@ function update(progress) {
 
 //Lås fps til 60 https://chriscourses.com/blog/standardize-your-javascript-games-framerate-for-different-monitors
 function burnRocket() {
-    spaceship.fuel.capacity -= spaceship.engine.consumption_max;
+    spaceship.fuel.capacity -= (spaceship.engine.consumption_max/100) * spaceship.throttle;
+    spaceship.engine.thrust = (spaceship.engine.thrust_max/100) * spaceship.throttle;
     if(spaceship.fuel.capacity <= 0) {
         spaceship.engine.thrust = 0;
         spaceship.fuel.capacity = 0;
     }
-    // let consumedFuel = (spaceship.engine.consumption_max/100) * spaceship.throttle;
-    // let acceleration = (spaceship.engine.acceleration_max/100) * spaceship.throttle;
-
-    // if(spaceship.throttle == 0) {
-    //     return;
-    // }
-    
-    // if(spaceship.fuel.capacity - consumedFuel > 0) {
-    //     spaceship.thrust += acceleration;
-    //     spaceship.fuel.capacity -= consumedFuel;
-    // } else {
-    //     spaceship.fuel.capacity = 0;
-    //     spaceship.thrust = 0;
-    // }
 }
 
 function move() {
     spaceship.acceleration = -physics_constants.gravitational_acceleration + spaceship.engine.thrust/spaceship.mass;
-    spaceship.velocity += spaceship.acceleration;
-    spaceship.height += spaceship.velocity;
+    spaceship.velocity += spaceship.acceleration / 30;
+    spaceship.y += spaceship.velocity / 30;
 
-    if(spaceship.height < 0) {
+    if(spaceship.y < 0) {
         spaceship.velocity = 0;
-        spaceship.height = 0;
+        spaceship.y = 0;
     }
-    // var ay = -physics_constants.gravitational_acceleration + (spaceship.thrust/spaceship.mass);
-    // if(spaceship.height < 0) {
-    //     spaceship.height = 0;
-    // }
-
-    // if(spaceship.height >= 0) {
-    //     spaceship.velocity += ay;
-    //     spaceship.height += spaceship.velocity;
-    // }
 }
 
 function calculate_velocity() {
@@ -75,7 +53,8 @@ function calculate_height() {
 
 function draw() {
     // Draw the state of the world
-    document.getElementById('height-id').innerHTML = niceRound(spaceship.height);
+    document.getElementById('time-id').innerHTML = niceRound(lastRender/1000);
+    document.getElementById('height-id').innerHTML = niceRound(spaceship.y);
     document.getElementById('throttle-id').innerHTML = niceRound(spaceship.throttle);
     document.getElementById('speed-id').innerHTML = niceRound(spaceship.velocity);
     document.getElementById('acceleration-id').innerHTML = niceRound(spaceship.acceleration);
@@ -85,7 +64,6 @@ function draw() {
 function niceRound(num) {
     return Math.round(num * 100) / 100
 }
-
 
 function loop(timestamp) {
     window.requestAnimationFrame(loop);
