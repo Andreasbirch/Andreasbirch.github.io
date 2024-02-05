@@ -5,13 +5,14 @@ const spaceship = {
     height: 0,
     mass: 100,
     engine: {
-        consumption_max: 1,
-        acceleration_max: 1,
+        thrust: 2000,
+        consumption_max: 10,
+        acceleration_max: 100,
         acceleration: 0,
         consumption: 0
     },
     fuel: {
-        capacity_max: 100,
-        capacity: 100,
+        capacity_max: 1000,
+        capacity: 1000,
     }
 }

@@ -17,30 +17,50 @@ function update(progress) {
     }
 
     burnRocket();
-
+    move();
 }
 
 //Lås fps til 60 https://chriscourses.com/blog/standardize-your-javascript-games-framerate-for-different-monitors
 function burnRocket() {
-    consumedFuel = (spaceship.engine.consumption_max/100) * spaceship.throttle;
-    acceleration = (spaceship.engine.acceleration_max/100) * spaceship.throttle;
-
-    if(spaceship.throttle == 0) {
-        return;
+    spaceship.fuel.capacity -= spaceship.engine.consumption_max;
+    if(spaceship.fuel.capacity <= 0) {
+        spaceship.engine.thrust = 0;
+        spaceship.fuel.capacity = 0;
     }
+    // let consumedFuel = (spaceship.engine.consumption_max/100) * spaceship.throttle;
+    // let acceleration = (spaceship.engine.acceleration_max/100) * spaceship.throttle;
+
+    // if(spaceship.throttle == 0) {
+    //     return;
+    // }
     
-    if(spaceship.fuel.capacity - consumedFuel > 0) {
-        spaceship.acceleration = acceleration;
-
-        spaceship.height += spaceship.velocity;
-        
-        spaceship.fuel.capacity -= consumedFuel;
-        spaceship.velocity += acceleration;
-    }
+    // if(spaceship.fuel.capacity - consumedFuel > 0) {
+    //     spaceship.thrust += acceleration;
+    //     spaceship.fuel.capacity -= consumedFuel;
+    // } else {
+    //     spaceship.fuel.capacity = 0;
+    //     spaceship.thrust = 0;
+    // }
 }
 
-function calculate_acceleration() {
-    spaceship.acceleration = spaceship.engine.acceleration
+function move() {
+    spaceship.acceleration = -physics_constants.gravitational_acceleration + spaceship.engine.thrust/spaceship.mass;
+    spaceship.velocity += spaceship.acceleration;
+    spaceship.height += spaceship.velocity;
+
+    if(spaceship.height < 0) {
+        spaceship.velocity = 0;
+        spaceship.height = 0;
+    }
+    // var ay = -physics_constants.gravitational_acceleration + (spaceship.thrust/spaceship.mass);
+    // if(spaceship.height < 0) {
+    //     spaceship.height = 0;
+    // }
+
+    // if(spaceship.height >= 0) {
+    //     spaceship.velocity += ay;
+    //     spaceship.height += spaceship.velocity;
+    // }
 }
 
 function calculate_velocity() {
