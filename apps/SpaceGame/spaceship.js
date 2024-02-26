@@ -5,7 +5,7 @@ const spaceship = {
     y: 0,
     mass: 100,
     engine: {
-        thrust_max: 2000,
+        thrust_max: 20000,
         thrust: 0,
         consumption_max: 10,
         consumption: 0
